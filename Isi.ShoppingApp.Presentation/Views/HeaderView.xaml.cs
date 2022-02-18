@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Isi.ShoppingApp.Presentation
+namespace Isi.ShoppingApp.Presentation.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for HeaderView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class HeaderView : UserControl
     {
-        public MainWindow()
+        public HeaderView()
         {
             InitializeComponent();
         }
