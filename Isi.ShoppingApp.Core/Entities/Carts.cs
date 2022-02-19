@@ -49,7 +49,7 @@ namespace Isi.ShoppingApp.Core.Entities
         private decimal discount;
         private decimal subtotal;
  
-        public Carts()
+        public Carts(long idCart, long fk_idUser)
         {
 
         }
