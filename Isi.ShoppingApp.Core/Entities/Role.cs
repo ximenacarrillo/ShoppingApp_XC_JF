@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Isi.ShoppingApp.Core.Entities
 {
-    public class Roles
+    public class Role
     {
         public long IdRole { get; }
         public string Name
@@ -20,17 +20,17 @@ namespace Isi.ShoppingApp.Core.Entities
         }
         
         private string name;
-        public Roles (long id, string name)
+        public Role (long id, string name)
         {
             IdRole = id;
             Name = name;
         }
 
-        public Roles(long id, Roles other)
+        public Role(long id, Role other)
             :this(id, other.Name)
         { }
 
-        public Roles(string name)
+        public Role(string name)
             :this(id: 0, name: name)
         { }
 

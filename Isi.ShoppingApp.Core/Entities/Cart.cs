@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Isi.ShoppingApp.Core.Entities
 {
-    public class Carts
+    public class Cart
     {
         public static readonly decimal GST = 0.05m;
         public static readonly decimal QST = 0.09975m;
@@ -49,7 +49,7 @@ namespace Isi.ShoppingApp.Core.Entities
         private decimal discount;
         private decimal subtotal;
  
-        public Carts(long idCart, long fk_idUser)
+        public Cart(long idCart, long fk_idUser)
         {
 
         }

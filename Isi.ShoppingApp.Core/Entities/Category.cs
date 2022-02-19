@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Isi.ShoppingApp.Core.Entities
 {
-    public class Categories
+    public class Category
     {
         public long IdCategory { get; }
         public string Name
@@ -20,16 +20,16 @@ namespace Isi.ShoppingApp.Core.Entities
         }
         private string name;
 
-        public Categories(long idCategory, string name)
+        public Category(long idCategory, string name)
         {
             IdCategory = idCategory;
             Name = name;
         }
-        public Categories(string name)
+        public Category(string name)
             :this(idCategory: 0, name: name)
         {   }
 
-        public Categories(long idCategory, Categories other)
+        public Category(long idCategory, Category other)
             :this(idCategory, other.Name)
         { }
     }
