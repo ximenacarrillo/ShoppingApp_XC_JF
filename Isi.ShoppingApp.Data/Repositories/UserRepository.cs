@@ -1,8 +1,6 @@
 ﻿using Isi.ShoppingApp.Core.Entities;
-using Microsoft.Data.SqlClient;
-using System;
-using System.Collections.Generic;
 using System.Configuration;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,6 +32,12 @@ namespace Isi.ShoppingApp.Data.Repositories
             long idRole = reader.GetInt64(4);
 
             return new User(id, username, name, password, idRole);
+        }
+
+        public User LoginUser(string password, string userName)
+        {
+            //TODO: implement authentication library
+            return null;
         }
     }
 }

@@ -9,9 +9,9 @@ namespace Isi.ShoppingApp.Presentation.ViewModels
 {
     public class ShoppingAppViewModel
     {
-        private Users user;
+        private User user;
 
-        public ShoppingAppViewModel(Users user)
+        public ShoppingAppViewModel(User user)
         {
             this.user = user;
         }

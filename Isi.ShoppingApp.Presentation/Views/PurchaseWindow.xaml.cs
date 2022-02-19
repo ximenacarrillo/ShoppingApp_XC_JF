@@ -9,7 +9,7 @@ namespace Isi.ShoppingApp.Presentation.Views
     /// </summary>
     public partial class PurchaseWindow : Window
     {
-        public PurchaseWindow(Users user )
+        public PurchaseWindow(User user )
         {
             InitializeComponent();
             ShoppingAppViewModel shoppingAppViewModel = new ShoppingAppViewModel(user);

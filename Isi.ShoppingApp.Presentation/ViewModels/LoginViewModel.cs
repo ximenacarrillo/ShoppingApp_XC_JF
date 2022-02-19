@@ -53,7 +53,7 @@ namespace Isi.ShoppingApp.Presentation.ViewModels
         {
             if (CanLoginUser(parameter))
             {
-                Result<Users> result =  userService.LoginUser(PasswordText, UserNameText);
+                Result<User> result =  userService.LoginUser(PasswordText, UserNameText);
                 if (result.Successful)
                 {
                     Window purchaseWindow = new PurchaseWindow(result.Data);
