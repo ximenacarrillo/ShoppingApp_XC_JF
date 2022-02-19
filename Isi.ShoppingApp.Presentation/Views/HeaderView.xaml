@@ -16,7 +16,15 @@
                            HorizontalAlignment="Left"
                        FontWeight="Bold"
                            FontSize="20" 
-                       Content="{Binding Path=UsersName, FallbackValue='NO USER LOGGED'}"/>
+                       Content="{Binding Path=UserName, FallbackValue='NO USER LOGGED'}"/>
+                <Button Content="Logout" x:Name="LogOutButton" 
+                          VerticalAlignment="Center"
+                        HorizontalAlignment="Right"
+                        Cursor="Hand"
+                        Margin="10"
+                        
+                        Command="{Binding Path=LogoutCommand}"/>
+                
             </DockPanel>
         </StackPanel>
     </DockPanel>

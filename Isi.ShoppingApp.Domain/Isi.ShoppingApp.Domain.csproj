@@ -5,10 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Isi.ShoppingApp.Core\Isi.ShoppingApp.Core.csproj" />
     <ProjectReference Include="..\Isi.ShoppingApp.Data\Isi.ShoppingApp.Data.csproj" />
   </ItemGroup>

@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Isi.ShoppingApp.Presentation.Views"
         mc:Ignorable="d"
-        Title="Shopping App" Height="450" Width="800">
+        Title="Shopping App" Height="450" Width="800"
+        x:Name="PuchaseWindow">
     <DockPanel DockPanel.Dock="Top" Background="White" Margin="15">
-        <Separator DockPanel.Dock="Top"/>
         <StackPanel>
             <local:HeaderView />
             <local:ProductsGridView />

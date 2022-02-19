@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Isi.ShoppingApp.Core\Isi.ShoppingApp.Core.csproj" />
     <ProjectReference Include="..\Isi.ShoppingApp.Domain\Isi.ShoppingApp.Domain.csproj" />
+    <ProjectReference Include="..\Isi.Utility\Isi.Utility.csproj" />
   </ItemGroup>
 
 </Project>
