@@ -74,5 +74,23 @@ namespace Isi.ShoppingApp.Core.Entities
         private decimal? discount;
         private int unitSold;
         private long idCategory;
+
+        public Product(long idProduct, string name, decimal price, int stock, decimal? discount, int unitSold, long idCategory)
+        {
+            IdCategory = idCategory;
+            Name = name;
+            Price = price;
+            Stock = stock;
+            Discount = discount;
+            UnitSold = unitSold;
+            IdCategory = idCategory;
+        }
+
+        public Product(long idProduct, Product other)
+            :this(idProduct, other.Name, other.Price, other.stock, other.Discount, other.UnitSold, other.IdCategory)
+        { }
+        public Product(string name, decimal price, int stock, decimal? discount, long idCategory)
+            :this(0, name, price, stock, discount, 0, idCategory)
+        { }
     }
 }

@@ -26,8 +26,14 @@ namespace Isi.ShoppingApp.Core.Entities
             Name = name;
         }
 
+        public Roles(long id, Roles other)
+            :this(id, other.Name)
+        { }
+
         public Roles(string name)
             :this(id: 0, name: name)
         { }
+
+
     }
 }

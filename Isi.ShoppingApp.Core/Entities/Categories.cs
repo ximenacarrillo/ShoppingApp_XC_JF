@@ -20,15 +20,17 @@ namespace Isi.ShoppingApp.Core.Entities
         }
         private string name;
 
-        public Categories(long id, string name)
+        public Categories(long idCategory, string name)
         {
-            IdCategory = id;
+            IdCategory = idCategory;
             Name = name;
         }
         public Categories(string name)
-            :this(id: 0, name: name)
-        {
+            :this(idCategory: 0, name: name)
+        {   }
 
-        }
+        public Categories(long idCategory, Categories other)
+            :this(idCategory, other.Name)
+        { }
     }
 }

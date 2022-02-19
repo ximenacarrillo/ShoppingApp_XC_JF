@@ -39,9 +39,19 @@ namespace Isi.ShoppingApp.Core.Entities
         private byte[] password;
         private long idRole;
 
-        public Users()
+        public Users(string username, string name, byte[] password, long idRole)
+            :this(0, username, name, password, idRole)
+        { }
+        public Users(long idUser, Users other)
+            :this(idUser, other.Username, other.Name, other.Password, other.IdRole)
+        {   }
+        public Users(long idUser, string username, string name, byte[] password, long idRole)
         {
-
+            IdUser = idUser;
+            Username = username;
+            Name = name;
+            Password = password; ///Check I dont want to have always the password here;
+            IdRole = idRole;
         }
     }
 }
