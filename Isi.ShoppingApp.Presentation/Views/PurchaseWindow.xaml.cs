@@ -1,16 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Isi.ShoppingApp.Core.Entities;
+using Isi.ShoppingApp.Presentation.ViewModels;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Isi.ShoppingApp.Presentation.Views
 {
@@ -19,9 +9,11 @@ namespace Isi.ShoppingApp.Presentation.Views
     /// </summary>
     public partial class PurchaseWindow : Window
     {
-        public PurchaseWindow()
+        public PurchaseWindow(Users user )
         {
             InitializeComponent();
+            ShoppingAppViewModel shoppingAppViewModel = new ShoppingAppViewModel(user);
+            DataContext = shoppingAppViewModel;
         }
     }
 }
