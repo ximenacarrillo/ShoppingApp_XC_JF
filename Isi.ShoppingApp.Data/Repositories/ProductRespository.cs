@@ -1,7 +1,10 @@
 ﻿using Isi.ShoppingApp.Core.Entities;
+using Isi.Utility.Results;
+using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,46 +13,82 @@ namespace Isi.ShoppingApp.Data.Repositories
     public class ProductRespository
     {
         private readonly string connectionString;
-        private List<Product> products;
         public ProductRespository()
         {
             connectionString = ConfigurationManager.ConnectionStrings["ShoppingDatabase"].ConnectionString;
-            products = new List<Product>() {
-                new Product(1, "Robot Vacuum", 239, 100, null, 0, 1),
-                new Product(4, "Lego City Street", 32, 0, null, 0, 2),
-                new Product(18, "Bike Specialized", 400, 50, 0, 0,8)
-            };
+        }
+        
+        public Product GetProductById(long id)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+
+            using SqlCommand command = connection.CreateCommand();
+
+            command.CommandText = "SELECT Products.IdProduct, Products.Name, Products.Price,Products.Stock, Products.UnitSold, Products.Discount, Categories.IdCategory, Categories.Name " +
+                                    "FROM Products " +
+                                    "INNER JOIN Categories " +
+                                    "ON Products.FK_IdCategory = Categories.IdCategory " +
+                                    "WHERE Products.IdProduct = @Id; ";
+
+            command.Parameters.Add("@Id", SqlDbType.BigInt).Value = id;
+
+            SqlDataReader reader = command.ExecuteReader();
+            if (reader.Read())
+                return ReadNextProduct(reader);
+            return null;
         }
 
         public List<Product> GetAllProducts()
         {
-            //TODO
-            return products;
+            using SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+
+            using SqlCommand command = connection.CreateCommand();
+            command.CommandText = "SELECT Products.IdProduct, Products.Name, Products.Price,Products.Stock, Products.UnitSold, Products.Discount, Categories.IdCategory, Categories.Name " +
+                                    "FROM Products " +
+                                    "INNER JOIN Categories " +
+                                    "ON Products.FK_IdCategory = Categories.IdCategory";
+
+
+
+            using SqlDataReader reader = command.ExecuteReader();
+
+            List<Product> employees = new List<Product>();
+            while (reader.Read())
+                employees.Add(ReadNextProduct(reader));
+            return employees;
         }
 
-        public List<Product> GetProductsByFirstName(string filterText)
+        private Product ReadNextProduct(SqlDataReader reader)
         {
-            //TODO
-            List<Product> listToReturn = new List<Product>();
-            if (filterText == "u")
-            {
-                listToReturn.Add(products[0]);
-            }
-            else if (filterText == "e"){
-                listToReturn.Add(products[1]);
-                listToReturn.Add(products[2]);
-            }
-            else if (filterText == "b"){
-                listToReturn.Add(products[0]);
-                listToReturn.Add(products[2]);
-            }
-            else
-            {
-                listToReturn = null;
-            }
+            long id = reader.GetInt64(0);
+            string name = reader.GetString(1);
+            decimal price = reader.GetDecimal(2);
+            int stock = reader.GetInt32(3);
+            int unitSold = reader.GetInt32(4);
+            decimal? discount = reader.GetDecimal(5);
+            long idCategory = reader.GetInt64(6);
+            string categoryName = reader.GetString(7);
+            
+            
+            return new Product
+                (
+                    id,
+                    name,
+                    price,
+                    stock,
+                    discount,
+                    unitSold,
+                    new Category
+                        (
+                            idCategory,
+                            categoryName
+                        )
+                );
 
-
-            return listToReturn;
         }
+
+        
     }
 }

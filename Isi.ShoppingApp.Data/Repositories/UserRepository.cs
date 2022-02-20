@@ -52,10 +52,7 @@ namespace Isi.ShoppingApp.Data.Repositories
             string name = reader.GetString(2);
             long idRole = reader.GetInt64(3);
             string nameRole = reader.GetString(4);
-            string username = reader.GetString(1);
-            string name = reader.GetString(2);
-            byte[] password = null; //TODO = (byte[])reader.GetValues(3);
-            long idRole = reader.GetInt64(4);
+            
 
             return new User(id, username, name, new Role(idRole,nameRole));
         }
@@ -63,7 +60,7 @@ namespace Isi.ShoppingApp.Data.Repositories
         public User GetPassword(string userName)
         {
             byte[] pass = { 1 };
-            User user = new User(10001, "JuanL", "Juan Lopez",pass,1);
+            User user = new User(10001, "JuanL", "Juan Lopez",new Role(1,"Admin"));
             //TODO: implement authentication library
 
             using SqlConnection connection = new SqlConnection(connectionString);
