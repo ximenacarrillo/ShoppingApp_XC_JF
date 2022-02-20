@@ -36,7 +36,7 @@ namespace Isi.ShoppingApp.Core.Entities
                     subtotal = value;
             }
         }
-
+        
         public decimal Total
         {
             get => Subtotal + Taxes;

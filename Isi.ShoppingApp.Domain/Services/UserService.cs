@@ -14,7 +14,7 @@ namespace Isi.ShoppingApp.Domain.Services
         //TODO implement service methods
         public Result<User> LoginUser(string password, string userName)
         {
-            User user = repository.LoginUser(password, userName);
+            User user = repository.GetPassword(userName);
            // if (user != null)
                 return Result<User>.Success(user);
 

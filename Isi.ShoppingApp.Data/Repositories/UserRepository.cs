@@ -9,11 +9,11 @@ namespace Isi.ShoppingApp.Data.Repositories
 {
     public class UserRepository
     {
-        private readonly string connectionString;
+        //private readonly string connectionString;
 
         public UserRepository()
         {
-            connectionString = ConfigurationManager.ConnectionStrings["ShoppingApp"].ConnectionString;
+           // connectionString = ConfigurationManager.ConnectionStrings["ShoppingApp"].ConnectionString;
         }
 
         public User GetEmployee(long id)
@@ -34,7 +34,7 @@ namespace Isi.ShoppingApp.Data.Repositories
             return new User(id, username, name, password, idRole);
         }
 
-        public User LoginUser(string password, string userName)
+        public User GetPassword(string userName)
         {
             //TODO: implement authentication library
             return null;
