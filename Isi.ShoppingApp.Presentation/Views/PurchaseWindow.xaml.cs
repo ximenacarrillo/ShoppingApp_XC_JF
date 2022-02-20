@@ -12,7 +12,7 @@ namespace Isi.ShoppingApp.Presentation.Views
         public PurchaseWindow(User user )
         {
             InitializeComponent();
-            ShoppingAppViewModel shoppingAppViewModel = new ShoppingAppViewModel(user);
+            ShoppingAppViewModel shoppingAppViewModel = new ShoppingAppViewModel(user, this);
             DataContext = shoppingAppViewModel;
         }
     }

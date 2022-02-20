@@ -15,7 +15,7 @@ namespace Isi.ShoppingApp.Presentation.ViewModels
         public event Action<string> CommandFailed;
         private UserService userService;
 
-        //Data fields
+    #region Data fields
         public Window LoginViewWindow;
         private string userNameText;
         public string UserNameText
@@ -39,15 +39,18 @@ namespace Isi.ShoppingApp.Presentation.ViewModels
                 LoginCommand.NotifyCanExecuteChanged();
             }
         }
-
-        //Command Properties
+    #endregion
+    #region Command Properties
         public DelegateCommand LoginCommand { get; }
+        #endregion
+    #region Constructor
         public LoginViewModel(Window window)
         {
             userService = new UserService();
             LoginCommand = new DelegateCommand(LoginUser, CanLoginUser);
             LoginViewWindow = window;
         }
+        #endregion
 
         private void LoginUser(object parameter)
         {
@@ -61,7 +64,10 @@ namespace Isi.ShoppingApp.Presentation.ViewModels
                     LoginViewWindow.Close();
                 }
                 else
+                {
                     CommandFailed?.Invoke(result.ErrorMessage);
+                    MessageBox.Show(result.ErrorMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
 

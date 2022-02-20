@@ -27,7 +27,7 @@ namespace Isi.ShoppingApp.Core.Entities
                     price = value;
             }
         }
-
+        //TODO create propierty Available
         public int Stock
         {
             get => stock;

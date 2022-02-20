@@ -7,9 +7,34 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\Resources\**" />
+    <EmbeddedResource Remove="Views\Resources\**" />
+    <None Remove="Views\Resources\**" />
+    <Page Remove="Views\Resources\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Views\img\addProductQuantity.png" />
+    <None Remove="Views\img\LogIn.png" />
+    <None Remove="Views\img\LogOut.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Isi.ShoppingApp.Core\Isi.ShoppingApp.Core.csproj" />
     <ProjectReference Include="..\Isi.ShoppingApp.Domain\Isi.ShoppingApp.Domain.csproj" />
     <ProjectReference Include="..\Isi.Utility\Isi.Utility.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Views\img\addProductQuantity.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Views\img\LogIn.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Views\img\LogOut.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>

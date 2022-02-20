@@ -15,10 +15,10 @@ namespace Isi.ShoppingApp.Domain.Services
         public Result<User> LoginUser(string password, string userName)
         {
             User user = repository.GetPassword(userName);
-           // if (user != null)
+            if (user != null)
                 return Result<User>.Success(user);
 
-            //return Result<Users>.Error($"Username or password incorrect.");
+            return Result<User>.Error($"Username or password incorrect.");
         }
     }
 }

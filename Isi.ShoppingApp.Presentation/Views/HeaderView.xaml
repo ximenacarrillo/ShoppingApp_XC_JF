@@ -5,26 +5,36 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Isi.ShoppingApp.Presentation.Views"
              mc:Ignorable="d" d:DesignWidth="800" Height="50">
+    <UserControl.Resources>
+        <BitmapImage x:Key="LogoutIcon" UriSource="./img/LogOut.png"/>
+    </UserControl.Resources>
     <DockPanel Background="White">
         <StackPanel>
             <DockPanel>
                 <Label x:Name="TitleWelcomeLabel"
-                           HorizontalAlignment="Left"
+                       HorizontalAlignment="Left"
                        FontWeight="Bold"
-                           FontSize="20" Content="WELCOME"/>
-                <Label x:Name="UsersNameLabel"
-                           HorizontalAlignment="Left"
-                       FontWeight="Bold"
-                           FontSize="20" 
-                       Content="{Binding Path=UserName, FallbackValue='NO USER LOGGED'}"/>
-                <Button Content="Logout" x:Name="LogOutButton" 
-                          VerticalAlignment="Center"
-                        HorizontalAlignment="Right"
-                        Cursor="Hand"
-                        Margin="10"
-                        
-                        Command="{Binding Path=LogoutCommand}"/>
+                       FontSize="20" Content="WELCOME"/>
                 
+                <Label x:Name="UsersNameLabel"
+                       HorizontalAlignment="Left"
+                       FontWeight="Bold"
+                       FontSize="20" 
+                       Content="{Binding Path=UserName, FallbackValue='NO USER LOGGED'}"
+                       Foreground="DarkBlue"/>
+
+                <Button x:Name="LogOutButton" 
+                        Cursor="Hand"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Right"
+                        Command="{Binding Path=LogoutCommand}"
+                        Width="80" Height="30"
+                        Background="White">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{StaticResource LogoutIcon}" Height="19" Width="26" />
+                        <TextBlock Text="Logout" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button>
             </DockPanel>
         </StackPanel>
     </DockPanel>
