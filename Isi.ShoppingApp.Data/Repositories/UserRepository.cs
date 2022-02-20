@@ -1,23 +1,41 @@
 ﻿using Isi.ShoppingApp.Core.Entities;
+using System;
+using System.Collections.Generic;
 using System.Configuration;
-using System.Data.SqlClient;
-using System.Linq;
+using System.Data;
 using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Data.SqlClient;
+
 
 namespace Isi.ShoppingApp.Data.Repositories
 {
     public class UserRepository
     {
-        //private readonly string connectionString;
+        private readonly string connectionString;
 
         public UserRepository()
         {
-           // connectionString = ConfigurationManager.ConnectionStrings["ShoppingApp"].ConnectionString;
+           connectionString = ConfigurationManager.ConnectionStrings["ShoppingDatabase"].ConnectionString;
         }
 
-        public User GetEmployee(long id)
+        public User GetUser(long id)
         {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+
+            using SqlCommand command = connection.CreateCommand();
+
+            command.CommandText = "SELECT Users.IdUser, Users.Username, Users.Name, Roles.IdRole, Roles.Name as Role " +
+                                    "FROM Users " +
+                                    "INNER JOIN Roles " +
+                                    "ON Roles.IdRole = Users.FK_IdRole " +
+                                    "WHERE Users.IdUser = @Id;";
+
+            command.Parameters.Add("@Id", SqlDbType.BigInt).Value = id;
+
+            SqlDataReader reader = command.ExecuteReader();
+            if (reader.Read())
+                return ReadNextUser(reader);
             return null;
         }
 
@@ -26,12 +44,12 @@ namespace Isi.ShoppingApp.Data.Repositories
         private User ReadNextUser(SqlDataReader reader)
         {
             long id = reader.GetInt64(0);
-            string name = reader.GetString(1);
-            string username = reader.GetString(2);
-            byte[] password = null; //TODO = (byte[])reader.GetValues(3);
-            long idRole = reader.GetInt64(4);
+            string username = reader.GetString(1);
+            string name = reader.GetString(2);
+            long idRole = reader.GetInt64(3);
+            string nameRole = reader.GetString(4);
 
-            return new User(id, username, name, password, idRole);
+            return new User(id, username, name, new Role(idRole,nameRole));
         }
 
         public User GetPassword(string userName)
