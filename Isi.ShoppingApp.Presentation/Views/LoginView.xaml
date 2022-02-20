@@ -21,6 +21,7 @@
             <Setter Property="VerticalContentAlignment" Value="Center"/>
             <Setter Property="MinWidth" Value="50"/>
         </Style>
+        <BitmapImage x:Key="LoginIcon" UriSource="./img/LogIn.png"/>
     </Window.Resources>
 
     <DockPanel DockPanel.Dock="Top" Background="White" Margin="15">
@@ -46,9 +47,15 @@
 
             <StackPanel>
                 <DockPanel Width="100">
-                    <Button Content="Login" x:Name="loginButton" 
-                          VerticalAlignment="Center" Cursor="Hand"
-                        Command="{Binding Path=LoginCommand}"/>
+                    <Button x:Name="loginButton" 
+                          Cursor="Hand"
+                        Command="{Binding Path=LoginCommand}"
+                            Width="80" Height="30">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{StaticResource LoginIcon}" Height="19" Width="26" />
+                            <TextBlock Text="Login" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
                 </DockPanel>
             </StackPanel>
         </StackPanel>

@@ -6,27 +6,45 @@
              xmlns:local="clr-namespace:Isi.ShoppingApp.Presentation.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    
     <DockPanel Background="White">
         <StackPanel>
+            
             <DockPanel>
                 <Label x:Name="TitleProductosLabel"
                            HorizontalAlignment="Left"
-                           FontSize="14" Content="Products"/>
+                           FontSize="14"
+                           FontWeight="Bold"
+                           Content="Products"/>
+                <DockPanel HorizontalAlignment="Right">
+                    <Label Content="Filter Product by Name" DockPanel.Dock="Left"/>
+                    <Separator Width="4" Height="10" DockPanel.Dock="Left"/>
+                    <Button Content="Clear"
+                    DockPanel.Dock="Right"
+                    Command="{Binding Path=ClearFilterCommand}"/>
+                    <TextBox Text="{Binding Path=FilterText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     VerticalContentAlignment="Center"
+                     DockPanel.Dock="Left"/>
+                </DockPanel>
             </DockPanel>
-
+            <Separator/>
             <DockPanel>
                 <DataGrid ItemsSource="{Binding Path=Products}"
                               AutoGenerateColumns = "False" 
                               SelectionMode = "Single" 
                               SelectedItem="{Binding Path=SelectedProduct}"
-                              x:Name="ProductsDataGrid">
+                              x:Name="ProductsDataGrid"
+                              MinHeight="200"
+                              MaxHeight="200"
+                               VerticalScrollBarVisibility="Auto">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Width="*" Binding="{Binding Path=Id}" Header="Id" IsReadOnly="True"/>
+                        <DataGridTextColumn Width="*" Binding="{Binding Path=IdProduct}" Header="Id" IsReadOnly="True" />
                         <DataGridTextColumn Width="*" Binding="{Binding Path=Name, Mode=TwoWay}" Header="Name" IsReadOnly="True"/>
-                        <DataGridTextColumn Width="*" Binding="{Binding Path=Category, Mode=TwoWay}" Header="Category" IsReadOnly="True"/>
-                        <DataGridTextColumn Width="*" Binding="{Binding Path=Description, Mode=TwoWay}" Header="Description" IsReadOnly="True"/>
-                        <DataGridTextColumn Width="*" Binding="{Binding Path=Discount, Mode=TwoWay}" Header="Discount" IsReadOnly="True"/>
-                        <DataGridTextColumn Width="*" Header="Available" Binding="{Binding Path=Available, Mode=OneWay}" />
+                        <DataGridTextColumn Width="*" Binding="{Binding Path=IdCategory, Mode=TwoWay}" Header="Category" IsReadOnly="True"/>
+                        <DataGridTextColumn Width="*" Binding="{Binding Path=Stock, Mode=TwoWay}" Header="Stock" IsReadOnly="True"/>
+                        <DataGridTextColumn Width="*" Binding="{Binding Path=Price, StringFormat='{}{0:c}', Mode=TwoWay}" Header="Price" IsReadOnly="True"/>
+                        <DataGridTextColumn Width="*" Binding="{Binding Path=Discount, Mode=TwoWay, TargetNullValue='0'}" Header="Discount(%)" IsReadOnly="True"/>
+                        <DataGridTextColumn Width="*" Header="Available" Binding="{Binding Path=Available, Mode=OneWay,FallbackValue='No information'}" />
                     </DataGrid.Columns>
                 </DataGrid>
             </DockPanel>
