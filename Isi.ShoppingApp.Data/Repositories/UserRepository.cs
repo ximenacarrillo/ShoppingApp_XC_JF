@@ -83,19 +83,7 @@ namespace Isi.ShoppingApp.Data.Repositories
             return new User(id, user);
         }
 
-        private User ReadNextUser(SqlDataReader reader)
-        {
-            long id = reader.GetInt64(0);
-            string username = reader.GetString(1);
-            string name = reader.GetString(2);
-            long idRole = reader.GetInt64(3);
-            string nameRole = reader.GetString(4);
-            
-
-            return new User(id, username, name, new Role(idRole,nameRole));
-        }
-
-        public HashedPassword GetPassword(string userName)
+        public byte[] GetPassword(string userName)
         {
             using SqlConnection connection = new SqlConnection(connectionString);
             connection.Open();
@@ -109,11 +97,30 @@ namespace Isi.ShoppingApp.Data.Repositories
             SqlDataReader reader = command.ExecuteReader();
             if (reader.Read())
             {
-                string? storedPassword = reader.IsDBNull(0) ? null : reader.GetString(0);
-                if(storedPassword != null)
-                    return PasswordHasher.HashPassword(storedPassword);
+                //string? storedPassword = reader.IsDBNull(0) ? null : reader.GetString(0);
+                //if(storedPassword != null)
+                //    return PasswordHasher.HashPassword(storedPassword);
+                return ReadPassword(reader);
             }
             return null;
+        }
+
+        private byte[] ReadPassword(SqlDataReader reader)
+        {
+            byte[] password = (byte[])reader[0];
+            return password;
+        }
+
+        private User ReadNextUser(SqlDataReader reader)
+        {
+            long id = reader.GetInt64(0);
+            string username = reader.GetString(1);
+            string name = reader.GetString(2);
+            long idRole = reader.GetInt64(3);
+            string nameRole = reader.GetString(4);
+
+
+            return new User(id, username, name, new Role(idRole, nameRole));
         }
     }
 }

@@ -15,7 +15,7 @@ namespace Isi.ShoppingApp.Domain.Services
         }
         public Result<User> LoginUser(string password, string username)
         {
-            HashedPassword storedPassword = repository.GetPassword(username);
+            byte[] storedPassword = repository.GetPassword(username);
 
             if (storedPassword != null)
                 if(PasswordHasher.CheckPassword(password, storedPassword) == PasswordResult.Correct)
