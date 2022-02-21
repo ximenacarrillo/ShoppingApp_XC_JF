@@ -65,6 +65,7 @@ namespace Isi.ShoppingApp.Presentation.ViewModels
                 AddToCartCommand.NotifyCanExecuteChanged();
                 AddQuantityCommand.NotifyCanExecuteChanged();
                 RemoveQuantityCommand.NotifyCanExecuteChanged();
+                RemoveFromCartCommand.NotifyCanExecuteChanged();
             }
         }
         #endregion
@@ -76,6 +77,7 @@ namespace Isi.ShoppingApp.Presentation.ViewModels
         public DelegateCommand AddToCartCommand { get; }
         public DelegateCommand AddQuantityCommand { get; }
         public DelegateCommand RemoveQuantityCommand { get; }
+        public DelegateCommand RemoveFromCartCommand { get; }
         public DelegateCommand EmptyCartCommand { get; }
         public DelegateCommand PlaceOrderCommand { get; }
 
@@ -118,13 +120,27 @@ namespace Isi.ShoppingApp.Presentation.ViewModels
             RemoveQuantityCommand = new DelegateCommand(RemoveUnitToProduct, CanRemoveUnitToProduct);
             EmptyCartCommand = new DelegateCommand(EmptyCart, CanEmptyCart);
             PlaceOrderCommand = new DelegateCommand(PlaceOrder, CanPlaceOrder);
+            RemoveFromCartCommand = new DelegateCommand(RemoveFromCart, CanRemoveFromCart);
+        }
+
+        private void RemoveFromCart(object obj)
+        {
+            Cart_Products.Remove(SelectedCartProduct);
+            UpdateCart();
+            EmptyCartCommand.NotifyCanExecuteChanged();
+        }
+
+        private bool CanRemoveFromCart(object arg)
+        {
+            return SelectedCartProduct != null
+                && Cart_Products.Count > 0;
         }
 
         private void RemoveUnitToProduct(object obj)
         {
-            if (CanAddUnitToProduct(obj)) 
+            if (CanRemoveUnitToProduct(obj)) 
                 SelectedCartProduct.Quantity--;
-                
+            EmptyCartCommand.NotifyCanExecuteChanged();
         }
 
         private bool CanRemoveUnitToProduct(object arg)
@@ -138,8 +154,9 @@ namespace Isi.ShoppingApp.Presentation.ViewModels
         {
             if (CanAddUnitToProduct(obj))
                 SelectedCartProduct.Quantity++;
-                
-            
+
+            EmptyCartCommand.NotifyCanExecuteChanged();
+
         }
 
         private bool CanAddUnitToProduct(object arg)
@@ -188,7 +205,7 @@ namespace Isi.ShoppingApp.Presentation.ViewModels
         private int ValidateQuantityToRemoveVsStock(Cart_Products cartProduct, int quantityToRemove)
         {
             int total = cartProduct.Quantity - quantityToRemove;
-            if (total >= 0)
+            if (total > 0)
                 return quantityToRemove;
             else
             {
@@ -291,6 +308,7 @@ namespace Isi.ShoppingApp.Presentation.ViewModels
                     {
                         Success?.Invoke($"Thank you for your purchase the invoice number is {invoice.Data.IdCart}, for a total of ${invoice.Data.Total}");
                         EmptyCart(obj);
+                        SelectedProduct = null;
                         AddToCartCommand.NotifyCanExecuteChanged();
                         AddQuantityCommand.NotifyCanExecuteChanged();
                         RemoveQuantityCommand.NotifyCanExecuteChanged();

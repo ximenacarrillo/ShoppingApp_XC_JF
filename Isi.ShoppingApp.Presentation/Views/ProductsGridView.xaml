@@ -45,7 +45,8 @@
                         <DataGridTextColumn Width="*" Binding="{Binding Path=Stock}" Header="Stock" IsReadOnly="True"/>
                         <DataGridTextColumn Width="*" Binding="{Binding Path=Price, StringFormat='{}{0:c}', Mode=TwoWay}" Header="Price" IsReadOnly="True"/>
                         <DataGridTextColumn Width="*" Binding="{Binding Path=Discount, Mode=TwoWay, TargetNullValue='0'}" Header="Discount(%)" IsReadOnly="True"/>
-                        <DataGridTextColumn Width="*" Header="Available" Binding="{Binding Path=Available, Mode=OneWay,FallbackValue='No information'}" />
+                        <DataGridTextColumn Width="*" Header="Available" Binding="{Binding Path=Available, Mode=OneWay,FallbackValue='No information'}" IsReadOnly="True" />
+                        <DataGridTextColumn Width="*" Header="Units Sold" Binding="{Binding Path=UnitSold, Mode=OneWay,FallbackValue='0'}" IsReadOnly="True" />
                     </DataGrid.Columns>
                 </DataGrid>
             </DockPanel>

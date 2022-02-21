@@ -35,10 +35,10 @@
         <ScrollViewer>
             <DockPanel DockPanel.Dock="Top" Background="White" Margin="15">
                 <StackPanel>
-                    <local:HeaderView />
+                    <local:HeaderView x:Name="HeaderView" />
                     <local:ProductsGridView />
                     <local:AddToCartView/>
-                    <local:CartGridView/>
+                    <local:CartGridView />
                     <local:CheckoutView/>
                 </StackPanel>
             </DockPanel>

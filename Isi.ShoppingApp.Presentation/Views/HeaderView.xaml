@@ -7,6 +7,7 @@
              mc:Ignorable="d" d:DesignWidth="800" Height="50">
     <UserControl.Resources>
         <BitmapImage x:Key="LogoutIcon" UriSource="./img/LogOut.png"/>
+        <BitmapImage x:Key="ViewOrdersIcon" UriSource="./img/ViewOrders.png"/>
     </UserControl.Resources>
     <DockPanel Background="White">
         <StackPanel>
@@ -22,7 +23,19 @@
                        FontSize="20" 
                        Content="{Binding Path=UserName, FallbackValue='NO USER LOGGED'}"
                        Foreground="DarkBlue"/>
-
+                <Button x:Name="ViewOrdersButton" 
+                        Cursor="Hand"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Right"
+                        Command="{Binding Path=ViewOrdersCommand}"
+                        Width="100" Height="30"
+                        Background="White"
+                        Visibility="Hidden">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{StaticResource ViewOrdersIcon}" Height="19" Width="26" />
+                        <TextBlock Text="View Orders" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button>
                 <Button x:Name="LogOutButton" 
                         Cursor="Hand"
                         VerticalAlignment="Center"

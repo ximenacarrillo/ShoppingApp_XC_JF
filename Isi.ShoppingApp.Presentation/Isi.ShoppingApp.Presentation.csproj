@@ -22,6 +22,7 @@
     <None Remove="Views\img\PlaceOrder.png" />
     <None Remove="Views\img\RemoveProductFromCart.png" />
     <None Remove="Views\img\removeProductQuantities.png" />
+    <None Remove="Views\img\ViewOrders.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -53,6 +54,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Views\img\removeProductQuantities.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Views\img\ViewOrders.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

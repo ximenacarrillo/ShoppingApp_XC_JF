@@ -1,5 +1,6 @@
 ﻿using Isi.ShoppingApp.Core.Entities;
 using Isi.ShoppingApp.Data.Repositories;
+using Isi.Utility.Authentication;
 using Isi.Utility.Results;
 
 namespace Isi.ShoppingApp.Domain.Services
@@ -11,12 +12,16 @@ namespace Isi.ShoppingApp.Domain.Services
         {
             repository = new UserRepository();
         }
-        //TODO implement service methods
-        public Result<User> LoginUser(string password, string userName)
+        public Result<User> LoginUser(string password, string username)
         {
-            User user = repository.GetPassword(userName);
-            if (user != null)
-                return Result<User>.Success(user);
+            HashedPassword storedPassword = repository.GetPassword(username);
+
+            if (storedPassword != null)
+                if(PasswordHasher.CheckPassword(password, storedPassword) == PasswordResult.Correct)
+                {
+                    User user = repository.GetUserByUsername(username);
+                    return Result<User>.Success(user);
+                }
 
             return Result<User>.Error($"Username or password incorrect.");
         }
