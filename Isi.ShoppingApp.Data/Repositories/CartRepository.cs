@@ -61,6 +61,45 @@ namespace Isi.ShoppingApp.Data.Repositories
             return carts;
         }
 
+        public List<CartSold> GetAllCartsOfClient(User user)
+        {
+
+            using SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+
+            using SqlCommand command = connection.CreateCommand();
+            command.CommandText = "SELECT Carts.Created, Carts.Discount, Carts.Subtotal, Carts.Taxes, Carts.Total, Users.Name " +
+                                    "FROM Carts " +
+                                    "INNER JOIN Users " +
+                                    "ON Users.IdUser = Carts.FK_IdUser " +
+                                    "WHERE Carts.FK_IdUser = @Id";
+
+            command.Parameters.Add("@Id", SqlDbType.BigInt).Value = user.IdUser;
+
+            using SqlDataReader reader = command.ExecuteReader();
+
+            List<CartSold> carts = new List<CartSold>();
+            while (reader.Read())
+                carts.Add(ReadNextCartSold(reader));
+
+            return carts;
+        }
+
+        public decimal GetDataStore()
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+
+            using SqlCommand command = connection.CreateCommand();
+            command.CommandText = "SELECT SUM(Carts.Total) as TotalSells " +
+                                    "FROM Carts;";
+
+            using SqlDataReader reader = command.ExecuteReader();
+
+            return reader.GetDecimal(0);
+          
+        }
+
         private CartSold ReadNextCartSold(SqlDataReader reader)
         {
             DateTime dateSold = reader.GetDateTime(0);
