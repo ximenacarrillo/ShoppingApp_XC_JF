@@ -50,6 +50,8 @@ namespace Isi.ShoppingApp.Data.Repositories
 
             command.CommandText = "SELECT Users.IdUser, Users.Username, Users.Name, Roles.IdRole, Roles.Name as Role " +
                                     "FROM Users " +
+                                    "INNER JOIN Roles " +
+                                    "ON Roles.IdRole = Users.FK_IdRole " +
                                     "WHERE Users.Username = @Username;";
 
             command.Parameters.Add("@Username", SqlDbType.NVarChar).Value = username;
@@ -67,13 +69,14 @@ namespace Isi.ShoppingApp.Data.Repositories
             connection.Open();
 
             using SqlCommand command = connection.CreateCommand();
-            command.CommandText = "INSERT INTO Products (Username, Name, Password, FK_IdRole, Created, Updated) " +
-                                    "OUTPUT inserted.IdProduct " +
-                                    "VALUES(@Username, @Name, @Password, @FK_IdRole, @Created, @Updated); ";
+            command.CommandText = "INSERT INTO Users (Username, Name, PasswordHash, PasswordSalt, FK_IdRole, Created, Updated) " +
+                                    "OUTPUT inserted.IdUser " +
+                                    "VALUES(@Username, @Name, @PasswordHash, @PasswordSalt, @FK_IdRole, @Created, @Updated); ";
             DateTime now = DateTime.UtcNow;
             command.Parameters.Add("@Username", SqlDbType.NVarChar).Value = user.Username;
             command.Parameters.Add("@Name", SqlDbType.NVarChar).Value = user.Name;
-            command.Parameters.Add("@Password", SqlDbType.VarBinary).Value = user.Password;
+            command.Parameters.Add("@PasswordHash", SqlDbType.VarBinary).Value = user.PasswordHash;
+            command.Parameters.Add("@PasswordSalt", SqlDbType.VarBinary).Value = user.PasswordSalt;
             command.Parameters.Add("@FK_IdRole", SqlDbType.BigInt).Value = user.Role.IdRole;
             command.Parameters.Add("@Created", SqlDbType.DateTime2).Value = now;
             command.Parameters.Add("@Updated", SqlDbType.DateTime2).Value = now;
@@ -83,13 +86,13 @@ namespace Isi.ShoppingApp.Data.Repositories
             return new User(id, user);
         }
 
-        public byte[] GetPassword(string userName)
+        public HashedPassword GetPassword(string userName)
         {
             using SqlConnection connection = new SqlConnection(connectionString);
             connection.Open();
 
             using SqlCommand command = connection.CreateCommand();
-            command.CommandText = "SELECT Users.Password " +
+            command.CommandText = "SELECT Users.PasswordHash, Users.PasswordSalt " +
                                     "FROM Users " +
                                     "WHERE Users.Username = @Username;";
             command.Parameters.Add("@Username", SqlDbType.NVarChar).Value = userName;
@@ -97,10 +100,9 @@ namespace Isi.ShoppingApp.Data.Repositories
             SqlDataReader reader = command.ExecuteReader();
             if (reader.Read())
             {
-                //string? storedPassword = reader.IsDBNull(0) ? null : reader.GetString(0);
-                //if(storedPassword != null)
-                //    return PasswordHasher.HashPassword(storedPassword);
-                return ReadPassword(reader);
+                byte[] storedPasswordHash = (byte[])reader[0];
+                byte[] storedPasswordSalt = (byte[])reader[1];
+                return new HashedPassword(storedPasswordSalt, storedPasswordHash);
             }
             return null;
         }
@@ -120,7 +122,7 @@ namespace Isi.ShoppingApp.Data.Repositories
             string nameRole = reader.GetString(4);
 
 
-            return new User(id, username, name, new Role(idRole, nameRole));
+            return new User(id, username, name, null, null, new Role(idRole, nameRole));
         }
     }
 }

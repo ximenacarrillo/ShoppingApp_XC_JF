@@ -14,9 +14,9 @@ namespace Test
         {
             UserService userRepository = new ();
 
-            byte[] hashPassword = PasswordHasher.HashPassword("@dm1n").Hash;
+            HashedPassword hashPassword = PasswordHasher.HashPassword("JaredC");
 
-            Result<User> result = userRepository.CreateUser(new User("admin", "admin", hashPassword, new Role(1, "Admin")));
+            Result<User> result = userRepository.CreateUser(new User("JaredC", "Jared", hashPassword.Hash, hashPassword.Salt, new Role(2, "Admin")));
             Console.WriteLine($"{result.Data}");
             
         }
