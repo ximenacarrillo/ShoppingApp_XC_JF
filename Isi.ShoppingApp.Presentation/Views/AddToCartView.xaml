@@ -5,32 +5,65 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Isi.ShoppingApp.Presentation.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="40" d:DesignWidth="600">
+    <UserControl.Resources>
+        <BitmapImage x:Key="AddToCartIcon" UriSource="./img/AddToCart.png"/>
+    </UserControl.Resources>
     <DockPanel Background="White">
         <StackPanel>
+            <Separator/>
             <DockPanel>
                 <StackPanel>
                     <Label x:Name="TitleProductoLabel"
                            HorizontalAlignment="Left"
-                           FontSize="12"
                            FontWeight="Bold"
                            Content="Product Selected:"/>
+                </StackPanel>
+                <StackPanel>
                     <Label x:Name="NameProductSelectedLabel"
                            HorizontalAlignment="Left"
-                           FontSize="12"
-                           Content="Product Selected:"/>
+                           Content="{Binding Path=SelectedProduct.Name, FallbackValue='No product selected.'}"/>
                 </StackPanel>
-                
-                <DockPanel HorizontalAlignment="Right">
-                    <Label Content="Filter Product by Name" DockPanel.Dock="Left"/>
-                    <Separator Width="4" Height="10" DockPanel.Dock="Left"/>
-                    <Button Content="Clear"
-                    DockPanel.Dock="Right"
-                    Command="{Binding Path=ClearFilterCommand}"/>
-                    <TextBox Text="{Binding Path=FilterText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                     VerticalContentAlignment="Center"
-                     DockPanel.Dock="Left"/>
-                </DockPanel>
+                <Separator/>
+                <StackPanel>
+                    <Label x:Name="QuantityLabel"
+                           HorizontalAlignment="Left"
+                           FontWeight="Bold"
+                           Content="Quantity:"/>
+                </StackPanel>
+                <StackPanel>
+                    <TextBox Text="{Binding Path=QuantityText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue='0'}"
+                            VerticalContentAlignment="Center"
+                            MinWidth="50" Width="50"
+                             MaxLength="4"
+                             HorizontalContentAlignment="Center"/>
+                </StackPanel>
+                <StackPanel>
+                    <Label Content="/"/>
+                </StackPanel>
+                <StackPanel>
+                    <Label x:Name="StockLabel"
+                           HorizontalAlignment="Left"
+                           FontWeight="Bold"
+                           Content="{Binding Path=SelectedProduct.Stock, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, FallbackValue='0'}"
+                           />
+                </StackPanel>
+                <StackPanel>
+                    <Label Content="In Stock"/>
+                </StackPanel>
+                <Separator/>
+                <StackPanel>
+                    <Button x:Name="AddToCartButton" 
+                        Command="{Binding Path=AddToCartCommand}"
+                            Width="110" Height="30" Margin="0">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{StaticResource AddToCartIcon}" />
+                            <Separator Width="8"/>
+                            <TextBlock Text="Add to Cart" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+                <Separator/>
             </DockPanel>
         </StackPanel>
     </DockPanel>

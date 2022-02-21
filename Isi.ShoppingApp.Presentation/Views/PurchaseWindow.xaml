@@ -5,10 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Isi.ShoppingApp.Presentation.Views"
         mc:Ignorable="d"
-        Title="Shopping App" Height="450" Width="800"
+        Title="Shopping App" Height="849" Width="800"
         x:Name="PuchaseWindow"
-        WindowStartupLocation="CenterScreen">
-
+        WindowStartupLocation="CenterScreen"        >
     <Window.Resources>
         <Style TargetType="Separator">
             <Setter Property="Width" Value="10"/>
@@ -17,10 +16,13 @@
         </Style>
         <Style TargetType="Label">
             <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="FontSize" Value="12"/>
         </Style>
         <Style TargetType="Button">
             <Setter Property="Padding" Value="10,5"/>
-            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Cursor" Value="Hand"/>
         </Style>
         <Style TargetType="TextBox">
             <Setter Property="VerticalContentAlignment" Value="Center"/>
@@ -30,11 +32,15 @@
             <Setter Property="Height" Value="25"/>
         </Style>
     </Window.Resources>
-    <DockPanel DockPanel.Dock="Top" Background="White" Margin="15">
-        <StackPanel>
-            <local:HeaderView />
-            <local:ProductsGridView />
-            <local:AddToCartView/>
-        </StackPanel>
-    </DockPanel>
+        <ScrollViewer>
+            <DockPanel DockPanel.Dock="Top" Background="White" Margin="15">
+                <StackPanel>
+                    <local:HeaderView />
+                    <local:ProductsGridView />
+                    <local:AddToCartView/>
+                    <local:CartGridView/>
+                    <local:CheckoutView/>
+                </StackPanel>
+            </DockPanel>
+        </ScrollViewer>
 </Window>

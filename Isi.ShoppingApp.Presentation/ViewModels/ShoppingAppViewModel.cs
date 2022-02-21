@@ -18,15 +18,38 @@ namespace Isi.ShoppingApp.Presentation.ViewModels
 
         #region Data fields
         public string UserName { get; set; }
+        private int quantityText { get; set; }
+        public int QuantityText
+        {
+            get => quantityText;
+            set
+            {
+                quantityText = value;
+                NotifyPropertyChanged(nameof(QuantityText));
+                AddToCartCommand.NotifyCanExecuteChanged();
+            }
+        }
         public ObservableCollection<Product> Products { get; }
         private Product selectedProduct;
-        private Product SelectedProduct
+        public Product SelectedProduct
         {
             get => selectedProduct;
             set
             {
                 selectedProduct = value;
                 NotifyPropertyChanged(nameof(SelectedProduct));
+                AddToCartCommand.NotifyCanExecuteChanged();
+            }
+        }
+        public ObservableCollection<Cart_Products> Cart { get; set; }
+        private Product selectedCartProduct;
+        public Product SelectedCartProduct
+        {
+            get => selectedCartProduct;
+            set
+            {
+                selectedProduct = value;
+                NotifyPropertyChanged(nameof(SelectedCartProduct));
             }
         }
         #endregion
@@ -36,6 +59,8 @@ namespace Isi.ShoppingApp.Presentation.ViewModels
         #region Command Properties
         public DelegateCommand LogoutCommand { get; }
         public DelegateCommand FilterProductCommand { get; }
+        public DelegateCommand ClearFilterCommand { get; }
+        public DelegateCommand AddToCartCommand { get; }
 
         private string filterText;
         public string FilterText
@@ -44,9 +69,12 @@ namespace Isi.ShoppingApp.Presentation.ViewModels
             set
             {
                 filterText = value;
-                FilterProduct(null);
                 NotifyPropertyChanged(nameof(FilterText));
                 FilterProductCommand.NotifyCanExecuteChanged();
+                if (value != string.Empty)
+                    FilterProduct(null);
+                else
+                    ClearFilter(null);
             }
         }
         #endregion
@@ -58,37 +86,50 @@ namespace Isi.ShoppingApp.Presentation.ViewModels
             this.window = window;
             UserName = user.Name;
             productService = new ProductService();
-            LogoutCommand = new DelegateCommand(LogoutUser);
             Products = new ObservableCollection<Product>(productService.GetAllProducts());
+            Cart = new ObservableCollection<Cart_Products>();
+            LogoutCommand = new DelegateCommand(LogoutUser);
             FilterProductCommand = new DelegateCommand(FilterProduct);
+            ClearFilterCommand = new DelegateCommand(ClearFilter);
+            AddToCartCommand = new DelegateCommand(AddToCart, CanAddToCart);
 
+        }
+
+        private void AddToCart(object obj)
+        {
+            if (CanAddToCart(obj))
+            {
+                //Cart.Add(new Cart_Products())
+            }
+        }
+
+        private bool CanAddToCart(object arg)
+        {
+            return selectedProduct != null
+                && QuantityText > 0;
         }
 
         private void FilterProduct(object obj)
         {
-            if (string.IsNullOrEmpty(FilterText))
+            Products.Clear();
+            List<Product> resultFilter = productService.GetProductsByFirstName(FilterText);
+            if (resultFilter != null)
             {
-                ClearFilter(obj);
-            }
-            else
-            {
-                Products.Clear();
-                List<Product> resultFilter = productService.GetProductsByFirstName(FilterText);
-                if (resultFilter != null)
-                {
-                    foreach (Product product in resultFilter)
-                        Products.Add(product);
-                }
+                foreach (Product product in resultFilter)
+                    Products.Add(product);
             }
         }
 
         private void ClearFilter(object obj)
         {
-            Products.Clear();
+            if(Products.Count > 0)
+                Products.Clear();
+            
 
-            List<Product> allProducts = productService.GetAllProducts();
+           List<Product> allProducts = productService.GetAllProducts();
             foreach (Product product in allProducts)
                 Products.Add(product);
+
         }
 
         private void LogoutUser(object obj)

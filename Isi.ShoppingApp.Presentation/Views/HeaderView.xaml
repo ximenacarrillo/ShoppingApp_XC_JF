@@ -28,7 +28,7 @@
                         VerticalAlignment="Center"
                         HorizontalAlignment="Right"
                         Command="{Binding Path=LogoutCommand}"
-                        Width="80" Height="30"
+                        Width="100" Height="30"
                         Background="White">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="{StaticResource LogoutIcon}" Height="19" Width="26" />

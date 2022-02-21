@@ -15,7 +15,8 @@
                            HorizontalAlignment="Left"
                            FontSize="14"
                            FontWeight="Bold"
-                           Content="Products"/>
+                           Content="PRODUCTS"
+                            Foreground="Blue"/>
                 <DockPanel HorizontalAlignment="Right">
                     <Label Content="Filter Product by Name" DockPanel.Dock="Left"/>
                     <Separator Width="4" Height="10" DockPanel.Dock="Left"/>

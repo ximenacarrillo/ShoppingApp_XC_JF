@@ -15,8 +15,13 @@
 
   <ItemGroup>
     <None Remove="Views\img\addProductQuantity.png" />
+    <None Remove="Views\img\AddToCart.png" />
+    <None Remove="Views\img\EmptyCart.png" />
     <None Remove="Views\img\LogIn.png" />
     <None Remove="Views\img\LogOut.png" />
+    <None Remove="Views\img\PlaceOrder.png" />
+    <None Remove="Views\img\RemoveProductFromCart.png" />
+    <None Remove="Views\img\removeProductQuantities.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,10 +34,25 @@
     <Resource Include="Views\img\addProductQuantity.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Views\img\AddToCart.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Views\img\EmptyCart.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Views\img\LogIn.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Views\img\LogOut.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Views\img\PlaceOrder.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Views\img\RemoveProductFromCart.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Views\img\removeProductQuantities.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

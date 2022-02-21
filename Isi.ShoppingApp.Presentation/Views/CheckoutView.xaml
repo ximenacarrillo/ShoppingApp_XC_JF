@@ -1,0 +1,95 @@
+﻿<UserControl x:Class="Isi.ShoppingApp.Presentation.Views.CheckoutView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Isi.ShoppingApp.Presentation.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="189.474" d:DesignWidth="423.546">
+    <UserControl.Resources>
+        <BitmapImage x:Key="PlaceOrderIcon" UriSource="./img/PlaceOrder.png"/>
+    </UserControl.Resources>
+    
+    <DockPanel Background="White" x:Name="CheckoutPanel">
+        <StackPanel >
+            <DockPanel>
+                <Label x:Name="TitleChackoutLabel"
+                           HorizontalAlignment="Left"
+                           FontSize="14"
+                           FontWeight="Bold"
+                           Foreground="Blue"
+                           Content="CHECKOUT"/>
+            </DockPanel>
+            <Border CornerRadius="6" 
+                    BorderBrush="LightGray" 
+                    Background="White" 
+                    BorderThickness="2" 
+                    DockPanel.Dock="Top" Width="200">
+                <DockPanel Width="200" >
+                    <Grid >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="1*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Label x:Name="TitleSubtotalLabel"
+                       HorizontalAlignment="Left"
+                       FontWeight="Bold"
+                       Content="Subtotal:"
+                       Grid.Row="0" Grid.Column="0"/>
+                        <Label x:Name="SubtotalLabel"
+                       HorizontalAlignment="Left"
+                       Content="{Binding Path=Subtotal, FallbackValue='$0.00', StringFormat='{}{0:c}'}"
+                       Grid.Row="0" Grid.Column="1"/>
+                        <Label x:Name="TitleDiscountLabel"
+                       HorizontalAlignment="Left"
+                       FontWeight="Bold"
+                       Content="Discount:"
+                       Grid.Row="1" Grid.Column="0"/>
+                        <Label x:Name="DiscountLabel"
+                       HorizontalAlignment="Left"
+                       Content="{Binding Path=Discount, FallbackValue='$0.00', StringFormat='{}{0:c}'}"
+                       Grid.Row="1" Grid.Column="1"/>
+                        <Label x:Name="TitleTaxLabel"
+                       HorizontalAlignment="Left"
+                       FontWeight="Bold"
+                       Content="Taxes:"
+                       Grid.Row="2" Grid.Column="0"/>
+                        <Label x:Name="TaxesLabel"
+                       HorizontalAlignment="Left"
+                       Content="{Binding Path=Taxes, FallbackValue='$0.00', StringFormat='{}{0:c}'}"
+                       Grid.Row="2" Grid.Column="1"/>
+                        <Label x:Name="TitleTotalLabel"
+                       HorizontalAlignment="Left"
+                       FontWeight="Bold"
+                       Content="Total:"
+                       Grid.Row="3" Grid.Column="0"/>
+                        <Label x:Name="TotalLabel"
+                       HorizontalAlignment="Left"
+                       Content="{Binding Path=Taxes, FallbackValue='$0.00', StringFormat='{}{0:c}'}"
+                       Grid.Row="3" Grid.Column="1"/>
+                    </Grid>
+                </DockPanel>
+            </Border>
+            <Separator Height="2"/>
+            <DockPanel>
+                <StackPanel>
+                    <Button x:Name="AddToCartButton" 
+                        Command="{Binding Path=AddToCartCommand}"
+                            Width="110" Height="30" Margin="0">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{StaticResource PlaceOrderIcon}" />
+                            <Separator Width="8"/>
+                            <TextBlock Text="Place Order" VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </DockPanel>
+        </StackPanel>
+    </DockPanel>
+</UserControl>
