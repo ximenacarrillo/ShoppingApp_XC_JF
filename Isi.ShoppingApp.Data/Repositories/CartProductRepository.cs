@@ -2,19 +2,18 @@
 using Microsoft.Data.SqlClient;
 using System.Configuration;
 
-
 namespace Isi.ShoppingApp.Data.Repositories
 {
-    public class CartRepository
+    public class CartProductRepository
     {
         private readonly string connectionString;
 
-        public CartRepository()
+        public CartProductRepository()
         {
             connectionString = ConfigurationManager.ConnectionStrings["ShoppingDatabase"].ConnectionString;
         }
 
-        public Cart CreateCart(Cart cart)
+        public Cart_Products CreateCartProducts(Cart_Products cartProducts)
         {
             using SqlConnection connection = new SqlConnection(connectionString);
             connection.Open();
@@ -22,9 +21,9 @@ namespace Isi.ShoppingApp.Data.Repositories
             using SqlCommand command = connection.CreateCommand();
             //TODO
             //command.CommandText = "";
-            
 
-            return new Cart(0, cart.User);
+
+            return new Cart_Products(cartProducts.CartObject, cartProducts.ProductObject, cartProducts.Quantity, cartProducts.Price, cartProducts.Discount, cartProducts.Subtotal);
         }
     }
 }

@@ -11,10 +11,10 @@ namespace Isi.ShoppingApp.Domain.Services
 {
     public class ProductService
     {
-        private readonly ProductRespository repository;
+        private readonly ProductRepository repository;
         public ProductService()
         {
-            repository = new ProductRespository();   
+            repository = new ProductRepository();   
         }
 
         

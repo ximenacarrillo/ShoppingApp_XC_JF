@@ -41,7 +41,7 @@
                     <DataGrid.Columns>
                         <DataGridTextColumn Width="*" Binding="{Binding Path=IdProduct}" Header="Id" IsReadOnly="True" />
                         <DataGridTextColumn Width="*" Binding="{Binding Path=Name, Mode=TwoWay}" Header="Name" IsReadOnly="True"/>
-                        <DataGridTextColumn Width="*" Binding="{Binding Path=IdCategory, Mode=TwoWay}" Header="Category" IsReadOnly="True"/>
+                        <DataGridTextColumn Width="*" Binding="{Binding Path=Category.Name, Mode=TwoWay}" Header="Category" IsReadOnly="True"/>
                         <DataGridTextColumn Width="*" Binding="{Binding Path=Stock, Mode=TwoWay}" Header="Stock" IsReadOnly="True"/>
                         <DataGridTextColumn Width="*" Binding="{Binding Path=Price, StringFormat='{}{0:c}', Mode=TwoWay}" Header="Price" IsReadOnly="True"/>
                         <DataGridTextColumn Width="*" Binding="{Binding Path=Discount, Mode=TwoWay, TargetNullValue='0'}" Header="Discount(%)" IsReadOnly="True"/>

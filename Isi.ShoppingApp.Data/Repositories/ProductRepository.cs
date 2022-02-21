@@ -10,10 +10,10 @@ using System.Text;
 using System.Threading.Tasks;
 namespace Isi.ShoppingApp.Data.Repositories
 {
-    public class ProductRespository
+    public class ProductRepository
     {
         private readonly string connectionString;
-        public ProductRespository()
+        public ProductRepository()
         {
             connectionString = ConfigurationManager.ConnectionStrings["ShoppingDatabase"].ConnectionString;
         }
@@ -62,10 +62,10 @@ namespace Isi.ShoppingApp.Data.Repositories
 
             using SqlDataReader reader = command.ExecuteReader();
 
-            List<Product> employees = new List<Product>();
+            List<Product> products = new List<Product>();
             while (reader.Read())
-                employees.Add(ReadNextProduct(reader));
-            return employees;
+                products.Add(ReadNextProduct(reader));
+            return products;
         }
 
         public List<Product> GetAllProducts()
@@ -83,10 +83,10 @@ namespace Isi.ShoppingApp.Data.Repositories
 
             using SqlDataReader reader = command.ExecuteReader();
 
-            List<Product> employees = new List<Product>();
+            List<Product> products = new List<Product>();
             while (reader.Read())
-                employees.Add(ReadNextProduct(reader));
-            return employees;
+                products.Add(ReadNextProduct(reader));
+            return products;
         }
 
         public bool DeleteProduct(Product product)

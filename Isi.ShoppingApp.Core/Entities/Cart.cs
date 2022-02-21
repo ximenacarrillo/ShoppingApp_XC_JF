@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Isi.ShoppingApp.Core.Entities
 {
-    public class Cart
+    public class Cart : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public static readonly decimal GST = 0.05m;
         public static readonly decimal QST = 0.09975m;
         public long IdCart { get; }
@@ -33,7 +36,10 @@ namespace Isi.ShoppingApp.Core.Entities
             set
             {
                 if (value > 0)
+                {
                     subtotal = value;
+                    NotifyPropertyChanged(nameof(Subtotal));
+                }
             }
         }
         
@@ -44,14 +50,22 @@ namespace Isi.ShoppingApp.Core.Entities
 
         public bool Sold { get; set; }
         
-        public long FK_IdUser { get; }
+        public User User { get; }
 
         private decimal discount;
         private decimal subtotal;
  
-        public Cart(long idCart, long fk_idUser)
+        public Cart(long idCart, User user)
         {
-
+            IdCart = idCart;
+            User = user;
+            Discount = 0;
+            Subtotal = 0;
+            Sold = false;
+        }
+        private void NotifyPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

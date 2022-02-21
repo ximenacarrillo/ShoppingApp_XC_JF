@@ -23,7 +23,7 @@
                            Content="CART"/>
             </DockPanel>
             <DockPanel>
-                <DataGrid ItemsSource="{Binding Path=Cart}"
+                <DataGrid ItemsSource="{Binding Path=Cart_Products}"
                               AutoGenerateColumns = "False" 
                               SelectionMode = "Single" 
                               SelectedItem="{Binding Path=SelectedCartProduct}"
@@ -32,10 +32,10 @@
                               MaxHeight="160"
                                VerticalScrollBarVisibility="Auto">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Width="*" Binding="{Binding Path=IdProduct}" Header="Id" IsReadOnly="True" />
-                        <DataGridTextColumn Width="*" Binding="{Binding Path=Name, Mode=TwoWay}" Header="Name" IsReadOnly="True"/>
-                        <DataGridTextColumn Width="*" Binding="{Binding Path=Units, Mode=TwoWay}" Header="Units" IsReadOnly="True"/>
-                        <DataGridTextColumn Width="*" Binding="{Binding Path=UnitPrice, StringFormat='{}{0:c}', Mode=TwoWay}" Header="Unit Price" IsReadOnly="True"/>
+                        <DataGridTextColumn Width="*" Binding="{Binding Path=ProductObject.IdProduct}" Header="Id" IsReadOnly="True" />
+                        <DataGridTextColumn Width="*" Binding="{Binding Path=ProductObject.Name, Mode=TwoWay}" Header="Name" IsReadOnly="True"/>
+                        <DataGridTextColumn Width="*" Binding="{Binding Path=Quantity, Mode=TwoWay}" Header="Units" IsReadOnly="True"/>
+                        <DataGridTextColumn Width="*" Binding="{Binding Path=Price, StringFormat='{}{0:c}', Mode=TwoWay}" Header="Unit Price" IsReadOnly="True"/>
                         <DataGridTextColumn Width="*" Binding="{Binding Path=Discount, Mode=TwoWay, TargetNullValue='0'}" Header="Discount(%)" IsReadOnly="True"/>
                         <DataGridTextColumn Width="*" Binding="{Binding Path=Subtotal, StringFormat='{}{0:c}', Mode=TwoWay}" Header="Subtotal" IsReadOnly="True"/>
                     </DataGrid.Columns>
@@ -52,7 +52,7 @@
                 <StackPanel>
                     <Label x:Name="NameProductSelectedLabel"
                            HorizontalAlignment="Left"
-                           Content="{Binding Path=SelectedCartProduct.Name, FallbackValue='No product selected.'}"/>
+                           Content="{Binding Path=SelectedCartProduct.ProductObject.Name, FallbackValue='No product selected.'}"/>
                 </StackPanel>
                 <StackPanel>
                     <Button x:Name="AddQtyProductFromCartButton" 
