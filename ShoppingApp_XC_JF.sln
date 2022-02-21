@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Isi.ShoppingApp.Data", "Isi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Isi.ShoppingApp.Domain", "Isi.ShoppingApp.Domain\Isi.ShoppingApp.Domain.csproj", "{A1F03190-420F-46CC-838E-6BF33E0FF179}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Isi.Utility", "Isi.Utility\Isi.Utility.csproj", "{74A46C6D-B5F6-408C-81D7-E9906F58C7F5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Isi.Utility", "Isi.Utility\Isi.Utility.csproj", "{74A46C6D-B5F6-408C-81D7-E9906F58C7F5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{00FF280C-58AF-4C07-8A46-E33F3615A926}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{74A46C6D-B5F6-408C-81D7-E9906F58C7F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{74A46C6D-B5F6-408C-81D7-E9906F58C7F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{74A46C6D-B5F6-408C-81D7-E9906F58C7F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00FF280C-58AF-4C07-8A46-E33F3615A926}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00FF280C-58AF-4C07-8A46-E33F3615A926}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00FF280C-58AF-4C07-8A46-E33F3615A926}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00FF280C-58AF-4C07-8A46-E33F3615A926}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -27,31 +27,25 @@ namespace Isi.ShoppingApp.Core.Entities
                 //TODO
             }
         }
-        public long IdRole
+        public Role Role
         {
-            get => idRole;
-            set
-            {
-                //TODO
-            }
+            get;
         }
         private string name;
         private byte[] password;
-        private long idRole;
 
-        public User(string username, string name, byte[] password, long idRole)
-            :this(0, username, name, password, idRole)
+        public User(string username, string name, Role role)
+            :this(0, username, name, role)
         { }
         public User(long idUser, User other)
-            :this(idUser, other.Username, other.Name, other.Password, other.IdRole)
+            :this(idUser, other.Username, other.Name, other.Role)
         {   }
-        public User(long idUser, string username, string name, byte[] password, long idRole)
+        public User(long idUser, string username, string name, Role role)
         {
             IdUser = idUser;
             Username = username;
             Name = name;
-            Password = password; ///Check I dont want to have always the password here;
-            IdRole = idRole;
+            Role = role;
         }
     }
 }

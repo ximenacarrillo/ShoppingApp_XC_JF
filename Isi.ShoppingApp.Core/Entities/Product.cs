@@ -58,13 +58,9 @@ namespace Isi.ShoppingApp.Core.Entities
             }
         }
 
-        public long IdCategory
+        public Category Category
         {
-            get => idCategory;
-            set
-            {
-                idCategory = value;
-            }
+            get;
         }
 
 
@@ -73,24 +69,23 @@ namespace Isi.ShoppingApp.Core.Entities
         private int stock;
         private decimal? discount;
         private int unitSold;
-        private long idCategory;
 
-        public Product(long idProduct, string name, decimal price, int stock, decimal? discount, int unitSold, long idCategory)
+        public Product(long idProduct, string name, decimal price, int stock, decimal? discount, int unitSold, Category category)
         {
-            IdCategory = idCategory;
+            IdProduct = idProduct;
             Name = name;
             Price = price;
             Stock = stock;
             Discount = discount;
             UnitSold = unitSold;
-            IdCategory = idCategory;
+            Category = category;
         }
 
         public Product(long idProduct, Product other)
-            :this(idProduct, other.Name, other.Price, other.stock, other.Discount, other.UnitSold, other.IdCategory)
+            :this(idProduct, other.Name, other.Price, other.stock, other.Discount, other.UnitSold, other.Category)
         { }
-        public Product(string name, decimal price, int stock, decimal? discount, long idCategory)
-            :this(0, name, price, stock, discount, 0, idCategory)
+        public Product(string name, decimal price, int stock, decimal? discount, Category category)
+            :this(0, name, price, stock, discount, 0, category)
         { }
     }
 }
