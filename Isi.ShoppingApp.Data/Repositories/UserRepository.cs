@@ -61,8 +61,28 @@ namespace Isi.ShoppingApp.Data.Repositories
             return null;
         }
 
+        public User CreateUser(User user)
+        {
+            using SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
 
-        
+            using SqlCommand command = connection.CreateCommand();
+            command.CommandText = "INSERT INTO Products (Username, Name, Password, FK_IdRole, Created, Update) " +
+                                    "OUTPUT inserted.IdProduct " +
+                                    "VALUES(@Username, @Name, @Password, @FK_IdRole, @Created, @Update); ";
+            DateTime now = DateTime.UtcNow;
+            command.Parameters.Add("@Username", SqlDbType.NVarChar).Value = user.Username;
+            command.Parameters.Add("@Name", SqlDbType.NVarChar).Value = user.Name;
+            command.Parameters.Add("@Password", SqlDbType.VarBinary).Value = user.Password;
+            command.Parameters.Add("@FK_IdRole", SqlDbType.BigInt).Value = user.Role.IdRole;
+            command.Parameters.Add("@Created", SqlDbType.DateTime2).Value = now;
+            command.Parameters.Add("@Modified", SqlDbType.DateTime2).Value = now;
+
+            long id = (long)command.ExecuteScalar();
+
+            return new User(id, user);
+        }
+
         private User ReadNextUser(SqlDataReader reader)
         {
             long id = reader.GetInt64(0);

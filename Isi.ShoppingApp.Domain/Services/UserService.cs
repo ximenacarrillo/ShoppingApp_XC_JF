@@ -2,6 +2,7 @@
 using Isi.ShoppingApp.Data.Repositories;
 using Isi.Utility.Authentication;
 using Isi.Utility.Results;
+using System;
 
 namespace Isi.ShoppingApp.Domain.Services
 {
@@ -25,5 +26,23 @@ namespace Isi.ShoppingApp.Domain.Services
 
             return Result<User>.Error($"Username or password incorrect.");
         }
+
+        public Result<User> CreateUser(User user)
+        {
+            ThrowIfUserIsNull(user);
+            user = repository.CreateUser(user);
+
+            if (user != null)
+                return Result<User>.Success(user);
+
+            return Result<User>.Error("Could not be created a new user.");
+        }
+        
+        private static void ThrowIfUserIsNull(User user)
+        {
+            if (user == null)
+                throw new ArgumentNullException(nameof(user));
+        }
+
     }
 }
