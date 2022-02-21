@@ -1,6 +1,7 @@
 ﻿using Isi.ShoppingApp.Core.Entities;
 using Isi.ShoppingApp.Data.Repositories;
 using Isi.ShoppingApp.Domain.Services;
+using Isi.Utility.Authentication;
 using Isi.Utility.Results;
 using System;
 using System.Collections.Generic;
@@ -11,10 +12,13 @@ namespace Test
     {
         static void Main(string[] args)
         {
-            ProductService userRepository = new ();
-            Product product = userRepository.GetProductById(23).Data;
-            product.Name = "Ipad";
-            userRepository.UpdateProduct(product);
+            UserService userRepository = new ();
+
+            byte[] hashPassword = PasswordHasher.HashPassword("@dm1n").Hash;
+
+            Result<User> result = userRepository.CreateUser(new User("admin", "admin", hashPassword, new Role(1, "Admin")));
+            Console.WriteLine($"{result.Data}");
+            
         }
     }
 }

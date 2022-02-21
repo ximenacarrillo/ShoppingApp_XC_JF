@@ -67,16 +67,16 @@ namespace Isi.ShoppingApp.Data.Repositories
             connection.Open();
 
             using SqlCommand command = connection.CreateCommand();
-            command.CommandText = "INSERT INTO Products (Username, Name, Password, FK_IdRole, Created, Update) " +
+            command.CommandText = "INSERT INTO Products (Username, Name, Password, FK_IdRole, Created, Updated) " +
                                     "OUTPUT inserted.IdProduct " +
-                                    "VALUES(@Username, @Name, @Password, @FK_IdRole, @Created, @Update); ";
+                                    "VALUES(@Username, @Name, @Password, @FK_IdRole, @Created, @Updated); ";
             DateTime now = DateTime.UtcNow;
             command.Parameters.Add("@Username", SqlDbType.NVarChar).Value = user.Username;
             command.Parameters.Add("@Name", SqlDbType.NVarChar).Value = user.Name;
             command.Parameters.Add("@Password", SqlDbType.VarBinary).Value = user.Password;
             command.Parameters.Add("@FK_IdRole", SqlDbType.BigInt).Value = user.Role.IdRole;
             command.Parameters.Add("@Created", SqlDbType.DateTime2).Value = now;
-            command.Parameters.Add("@Modified", SqlDbType.DateTime2).Value = now;
+            command.Parameters.Add("@Updated", SqlDbType.DateTime2).Value = now;
 
             long id = (long)command.ExecuteScalar();
 
