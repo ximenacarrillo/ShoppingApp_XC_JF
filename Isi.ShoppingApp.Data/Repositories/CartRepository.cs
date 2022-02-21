@@ -39,5 +39,33 @@ namespace Isi.ShoppingApp.Data.Repositories
 
             return new Cart(id, cart);
         }
+
+        public List<Cart> GetAllCarts()
+        {
+
+            using SqlConnection connection = new SqlConnection(connectionString);
+            connection.Open();
+
+            using SqlCommand command = connection.CreateCommand();
+            command.CommandText = "SELECT Products.IdProduct, Products.Name, Products.Price,Products.Stock, Products.UnitSold, Products.Discount, Categories.IdCategory, Categories.Name " +
+                                    "FROM Products " +
+                                    "INNER JOIN Categories " +
+                                    "ON Products.FK_IdCategory = Categories.IdCategory";
+
+
+
+            using SqlDataReader reader = command.ExecuteReader();
+
+            List<Cart> carts = new List<Cart>();
+            while (reader.Read())
+                carts.Add(ReadNextCart(reader));
+
+            return carts;
+        }
+
+        private Cart ReadNextCart(SqlDataReader reader)
+        {
+            return null;
+        }
     }
 }
