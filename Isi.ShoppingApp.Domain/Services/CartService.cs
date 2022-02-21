@@ -37,6 +37,11 @@ namespace Isi.ShoppingApp.Domain.Services
             return Result<Cart>.Error("Sorry, the purchase could not be completed.");
         }
 
+        public List<CartSold> GetAllCarts()
+        {
+            return cartRepository.GetAllCarts();
+        }
+
         private static void ThrowIfCartIsNull(Cart cart)
         {
             if (cart == null)

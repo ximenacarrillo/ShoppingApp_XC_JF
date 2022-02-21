@@ -11,10 +11,11 @@ namespace Test
     {
         static void Main(string[] args)
         {
-            ProductService userRepository = new ();
-            Product product = userRepository.GetProductById(23).Data;
-            product.Name = "Ipad";
-            userRepository.UpdateProduct(product);
+            CartService cartService = new();
+            foreach (CartSold cart in cartService.GetAllCarts())
+            {
+                Console.WriteLine(cart.SoldDate);
+            }
         }
     }
 }

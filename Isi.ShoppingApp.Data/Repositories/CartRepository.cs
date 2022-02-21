@@ -40,32 +40,37 @@ namespace Isi.ShoppingApp.Data.Repositories
             return new Cart(id, cart);
         }
 
-        public List<Cart> GetAllCarts()
+        public List<CartSold> GetAllCarts()
         {
 
             using SqlConnection connection = new SqlConnection(connectionString);
             connection.Open();
 
             using SqlCommand command = connection.CreateCommand();
-            command.CommandText = "SELECT Products.IdProduct, Products.Name, Products.Price,Products.Stock, Products.UnitSold, Products.Discount, Categories.IdCategory, Categories.Name " +
-                                    "FROM Products " +
-                                    "INNER JOIN Categories " +
-                                    "ON Products.FK_IdCategory = Categories.IdCategory";
-
-
+            command.CommandText = "SELECT Carts.Created, Carts.Discount, Carts.Subtotal, Carts.Taxes, Carts.Total, Users.Name " +
+                                    "FROM Carts " +
+                                    "INNER JOIN Users " +
+                                    "ON Users.IdUser = Carts.FK_IdUser; ";
 
             using SqlDataReader reader = command.ExecuteReader();
 
-            List<Cart> carts = new List<Cart>();
+            List<CartSold> carts = new List<CartSold>();
             while (reader.Read())
-                carts.Add(ReadNextCart(reader));
+                carts.Add(ReadNextCartSold(reader));
 
             return carts;
         }
 
-        private Cart ReadNextCart(SqlDataReader reader)
+        private CartSold ReadNextCartSold(SqlDataReader reader)
         {
-            return null;
+            DateTime dateSold = reader.GetDateTime(0);
+            decimal discount = reader.GetDecimal(1);
+            decimal subtotal = reader.GetDecimal(2);
+            decimal taxes = reader.GetDecimal(3);
+            decimal total = reader.GetDecimal(4);
+            string customerName = reader.GetString(5);
+
+            return new CartSold(dateSold, discount, subtotal, taxes, total, customerName);
         }
     }
 }
