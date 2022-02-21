@@ -37,7 +37,7 @@
                         <DataGridTextColumn Width="*" Binding="{Binding Path=Quantity, Mode=TwoWay}" Header="Units" IsReadOnly="True"/>
                         <DataGridTextColumn Width="*" Binding="{Binding Path=Price, StringFormat='{}{0:c}', Mode=TwoWay}" Header="Unit Price" IsReadOnly="True"/>
                         <DataGridTextColumn Width="*" Binding="{Binding Path=Discount, Mode=TwoWay, TargetNullValue='0'}" Header="Discount(%)" IsReadOnly="True"/>
-                        <DataGridTextColumn Width="*" Binding="{Binding Path=Subtotal, StringFormat='{}{0:c}', Mode=TwoWay}" Header="Subtotal" IsReadOnly="True"/>
+                        <DataGridTextColumn Width="*" Binding="{Binding Path=Subtotal, StringFormat='{}{0:c}'}" Header="Subtotal" IsReadOnly="True"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </DockPanel>

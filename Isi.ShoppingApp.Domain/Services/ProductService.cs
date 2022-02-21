@@ -30,11 +30,13 @@ namespace Isi.ShoppingApp.Domain.Services
         {
             return repository.GetAllProducts();
         }
+        
 
         public List<Product> GetProductsByFirstName(string filterText)
         {
             return repository.GetProductsByFirstName(filterText);
         }
+        /// <exception cref="ArgumentNullException"/>
 
         public Result RemoveProduct(Product product)
         {
@@ -48,6 +50,7 @@ namespace Isi.ShoppingApp.Domain.Services
                 return Result.Error($"Failed to remove product with id {product.IdProduct}.");
             return Result.Success();
         }
+        /// <exception cref="ArgumentNullException"/>
 
         public Result<Product> AddProduct(Product product)
         {

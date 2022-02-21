@@ -10,9 +10,12 @@ namespace Isi.ShoppingApp.Core.Entities
     public class Cart_Products : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-
+         
         public Cart CartObject { get; set; }
         public Product ProductObject { get; set; }
+
+        public long IdCart_Products { get; }
+
         public int Quantity
         {
             get => quantity;
@@ -22,6 +25,7 @@ namespace Isi.ShoppingApp.Core.Entities
                 {
                     quantity = value;
                     NotifyPropertyChanged(nameof(Quantity));
+                    NotifyPropertyChanged(nameof(Subtotal));
                 }
             }
         }
@@ -45,37 +49,41 @@ namespace Isi.ShoppingApp.Core.Entities
                 if (value > 0)
                 {
                     discount = value;
-                    NotifyPropertyChanged(nameof(Price));
+                    NotifyPropertyChanged(nameof(Discount));
                 }
             }
         }
 
         public decimal Subtotal
         {
-            get => subtotal;
-            set { 
-                if(value >= 0)
-                {
-                    subtotal = value;
-                    NotifyPropertyChanged(nameof(Subtotal));
-                }
-            }
+            get => (Price - (Price * Discount / 100)) * Quantity;
+        }
+
+        public decimal DiscountValue
+        {
+            get => (Price * Quantity* Discount / 100);
         }
 
         private int quantity;
         private decimal price;
         private decimal discount;
-        private decimal subtotal;
 
-        public Cart_Products(Cart cart, Product product, int quantity, decimal price, decimal discount, decimal subtotal)
+        public Cart_Products(Cart cart, Product product, int quantity, decimal price, decimal discount)
+            : this(0, cart, product, quantity, price, discount)
+        { }
+        public Cart_Products(long idCart, Cart cart, Product product, int quantity, decimal price, decimal discount)
+            
         {
+            IdCart_Products = idCart;
             CartObject = cart;
             ProductObject = product;
             Quantity = quantity;
             Price = price;
             Discount = discount;
-            Subtotal = subtotal;
         }
+        public Cart_Products(long id, Cart_Products other)
+            :this(id, other.CartObject, other.ProductObject, other.quantity, other.Price, other.Discount)
+        { }
 
         private void NotifyPropertyChanged(string propertyName)
         {

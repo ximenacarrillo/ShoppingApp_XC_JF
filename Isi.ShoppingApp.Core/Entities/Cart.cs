@@ -14,34 +14,39 @@ namespace Isi.ShoppingApp.Core.Entities
         public static readonly decimal GST = 0.05m;
         public static readonly decimal QST = 0.09975m;
         public long IdCart { get; }
-        public decimal Discount 
+
+        public decimal Subtotal
         {
-            get => discount;
-            set
-            {   
-                if(value >= 0)
-                    discount = value;
-            }                
+            get
+            {
+                decimal toReturn = 0;
+
+                foreach (Cart_Products product in products)
+                {
+                    toReturn += product.Subtotal;
+                }
+                return toReturn;
+            }
+        }
+        public decimal Discount
+        {
+            get
+            {
+                decimal toReturn = 0;
+
+                foreach (Cart_Products product in products)
+                {
+                    toReturn += product.DiscountValue;
+                }
+                return toReturn;
+            }
         }
         public decimal Taxes
         {
-            get => (Subtotal * GST) + (Subtotal * QST);
-            
+            get => (Subtotal * GST) + (Subtotal * QST);            
         }
 
-        public decimal Subtotal
-        { 
-            //In my opinion is a calculate property
-            get => subtotal;
-            set
-            {
-                if (value > 0)
-                {
-                    subtotal = value;
-                    NotifyPropertyChanged(nameof(Subtotal));
-                }
-            }
-        }
+        
         
         public decimal Total
         {
@@ -49,20 +54,39 @@ namespace Isi.ShoppingApp.Core.Entities
         }
 
         public bool Sold { get; set; }
+
+        public List<Cart_Products> Products 
+        { 
+            get => products; 
+            set
+            {
+                products = value;
+                NotifyPropertyChanged(nameof(Subtotal));
+                NotifyPropertyChanged(nameof(Taxes));
+                NotifyPropertyChanged(nameof(Discount));
+                NotifyPropertyChanged(nameof(Total));
+            }
+        }
         
         public User User { get; }
 
-        private decimal discount;
-        private decimal subtotal;
+
+        private List<Cart_Products> products;
  
-        public Cart(long idCart, User user)
+        public Cart(long idCart, User user, List<Cart_Products> products)
         {
             IdCart = idCart;
             User = user;
-            Discount = 0;
-            Subtotal = 0;
             Sold = false;
+            Products = products;
         }
+        public Cart(long id, Cart other)
+            :this(id, other.User, other.Products)
+        { }
+
+        public Cart(User user)
+            :this(0, user, new List<Cart_Products>())
+        { }
         private void NotifyPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

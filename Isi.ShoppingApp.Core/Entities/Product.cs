@@ -36,16 +36,17 @@ namespace Isi.ShoppingApp.Core.Entities
                 }
             }
         }
-        //TODO create propierty Available
+
         public int Stock
         {
             get => stock;
-            set
+            private set
             {
                 if (value >= 0)
                 {
                     stock = value;
                     NotifyPropertyChanged(nameof(Stock));
+                    NotifyPropertyChanged(nameof(Available));
                 }
             }
         }
@@ -66,12 +67,13 @@ namespace Isi.ShoppingApp.Core.Entities
         public int UnitSold
         {
             get => unitSold;
-            set
+            private set
             {
                 if (value > 0)
                 {
                     unitSold = value;
                     NotifyPropertyChanged(nameof(UnitSold));
+                    NotifyPropertyChanged(nameof(Available));
                 }
             }
         }
@@ -114,6 +116,17 @@ namespace Isi.ShoppingApp.Core.Entities
         private void NotifyPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public void AddStock(int quantity)
+        {
+            Stock += quantity;
+        }
+
+        public void Sale(int quantity)
+        {
+            UnitSold += quantity;
+            Stock -= quantity;
         }
     }
 }

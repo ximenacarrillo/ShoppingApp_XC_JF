@@ -13,7 +13,12 @@ namespace Isi.ShoppingApp.Presentation.Views
         {
             InitializeComponent();
             ShoppingAppViewModel shoppingAppViewModel = new ShoppingAppViewModel(user, this);
+            shoppingAppViewModel.ErrorMessage += OnErrorMessage;
             DataContext = shoppingAppViewModel;
         }
+
+        private void OnErrorMessage(string message) =>
+                MessageBox.Show(message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
     }
 }

@@ -45,7 +45,7 @@
                     <Label x:Name="StockLabel"
                            HorizontalAlignment="Left"
                            FontWeight="Bold"
-                           Content="{Binding Path=SelectedProduct.Stock, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, FallbackValue='0'}"
+                           Content="{Binding Path=SelectedProduct.Stock, UpdateSourceTrigger=PropertyChanged, FallbackValue='0'}"
                            />
                 </StackPanel>
                 <StackPanel>

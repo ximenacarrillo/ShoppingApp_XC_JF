@@ -7,17 +7,24 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Windows;
 
 namespace Isi.ShoppingApp.Presentation.ViewModels
 {
+    public delegate void ErrorMessageHandler(string message);
+    public delegate void SuccessHandel(string message);
     public class ShoppingAppViewModel : ViewModel, INotifyPropertyChanged
     {
+        public event ErrorMessageHandler ErrorMessage;
+        public event SuccessHandel Success;
+
         private User user;
         private Window window;
         private ProductService productService;
         private CartService cartService;
         private CartProductsService cartProductsService;
+        private Cart cart;
 
         #region Data fields
         public string UserName { get; set; }
@@ -46,7 +53,8 @@ namespace Isi.ShoppingApp.Presentation.ViewModels
             }
         }
         public ObservableCollection<Cart_Products> Cart_Products { get; set; }
-        public Cart Cart{ get; set; }
+        public Cart Cart{ 
+            get =>cart; set { cart = value; NotifyPropertyChanged(nameof(Cart)); } }
         private Cart_Products selectedCartProduct;
         public Cart_Products SelectedCartProduct
         {
@@ -68,6 +76,8 @@ namespace Isi.ShoppingApp.Presentation.ViewModels
         public DelegateCommand AddToCartCommand { get; }
         public DelegateCommand AddQuantityCommand { get; }
         public DelegateCommand RemoveQuantityCommand { get; }
+        public DelegateCommand EmptyCartCommand { get; }
+        public DelegateCommand PlaceOrderCommand { get; }
 
         private string filterText;
         public string FilterText
@@ -85,7 +95,7 @@ namespace Isi.ShoppingApp.Presentation.ViewModels
             }
         }
         #endregion
-        int cartCounter = 0;
+       
         //Constructor
         public ShoppingAppViewModel(User user, Window window)
         {
@@ -95,6 +105,7 @@ namespace Isi.ShoppingApp.Presentation.ViewModels
             productService = new ProductService();
             cartService = new CartService();
             cartProductsService = new CartProductsService();
+            Cart = new Cart(user);
             
             Products = new ObservableCollection<Product>(productService.GetAllProducts());
             Cart_Products = new ObservableCollection<Cart_Products>();            
@@ -105,72 +116,62 @@ namespace Isi.ShoppingApp.Presentation.ViewModels
             AddToCartCommand = new DelegateCommand(AddToCart, CanAddToCart);
             AddQuantityCommand = new DelegateCommand(AddUnitToProduct, CanAddUnitToProduct);
             RemoveQuantityCommand = new DelegateCommand(RemoveUnitToProduct, CanRemoveUnitToProduct);
-
+            EmptyCartCommand = new DelegateCommand(EmptyCart, CanEmptyCart);
+            PlaceOrderCommand = new DelegateCommand(PlaceOrder, CanPlaceOrder);
         }
 
         private void RemoveUnitToProduct(object obj)
         {
-            if (CanAddUnitToProduct(obj)) { 
+            if (CanAddUnitToProduct(obj)) 
                 SelectedCartProduct.Quantity--;
-                SelectedCartProduct.Subtotal = getSubotal(SelectedCartProduct.Price, SelectedCartProduct.Discount, 1);
-            }
+                
         }
 
         private bool CanRemoveUnitToProduct(object arg)
         {
             return SelectedCartProduct != null
-                && SelectedCartProduct.ProductObject.Stock > 0
+                && SelectedCartProduct.ProductObject.Available
                 && ValidateQuantityToRemoveVsStock(SelectedCartProduct, 1) >= 0;
         }
 
         private void AddUnitToProduct(object obj)
         {
             if (CanAddUnitToProduct(obj))
-            {
                 SelectedCartProduct.Quantity++;
-                SelectedCartProduct.Subtotal = getSubotal(SelectedCartProduct.Price, SelectedCartProduct.Discount, 1);
-            }
+                
+            
         }
 
         private bool CanAddUnitToProduct(object arg)
         {
             return SelectedCartProduct != null
-                && SelectedCartProduct.ProductObject.Stock > 0
+                && SelectedCartProduct.ProductObject.Available
                 && ValidateQuantityToAddVsStock(SelectedCartProduct, 1) > 0;
         }
 
         private void AddToCart(object obj)
         {
-            if(cartCounter == 0)
-            {
-                Result<Cart> result = cartService.CreateCart(new Cart(1, user));
-                if (result.Successful)
-                {
-                    this.Cart = result.Data;
-                    cartCounter++;
-                }
-            }
+            
             if (CanAddToCart(obj))
             {
                 Cart_Products cartProducts = GetCartProductIfExistsInCart();
                 if (cartProducts == null)
                 {
-                    CreateCartProducts();
+                   CreateCartProducts();
                 }
                 else
                 {
                     foreach (Cart_Products cartProductItem in Cart_Products)
-                        if (cartProductItem.ProductObject.Equals(selectedProduct))
-                        { 
-                            cartProductItem.Quantity += ValidateQuantityToAddVsStock(cartProductItem, QuantityText);
-                            cartProductItem.Subtotal += getSubotal(cartProductItem.Price, cartProductItem.Discount, cartProductItem.Quantity);
-                        }
+                        if (cartProductItem.ProductObject.Equals(selectedProduct))  
+                            cartProductItem.Quantity += ValidateQuantityToAddVsStock(cartProductItem, QuantityText);                            
+                        
                 }
-                
-                
+                UpdateCart();
+
             }
             AddQuantityCommand.NotifyCanExecuteChanged();
             RemoveQuantityCommand.NotifyCanExecuteChanged();
+            EmptyCartCommand.NotifyCanExecuteChanged();
         }
 
         private int ValidateQuantityToAddVsStock(Cart_Products cartProduct, int quantityToAdd)
@@ -180,7 +181,7 @@ namespace Isi.ShoppingApp.Presentation.ViewModels
                 return quantityToAdd;
             else
             {
-                MessageBox.Show($"Quantity to add is greather than stock of product {cartProduct.ProductObject.Name}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                ErrorMessage?.Invoke($"Quantity to add is greather than stock of product {cartProduct.ProductObject.Name}");
                 return 0;
             }
         }
@@ -191,24 +192,14 @@ namespace Isi.ShoppingApp.Presentation.ViewModels
                 return quantityToRemove;
             else
             {
-                MessageBox.Show($"I not possible to remove more unit for {cartProduct.ProductObject.Name}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                ErrorMessage?.Invoke($"I not possible to remove more unit for {cartProduct.ProductObject.Name}");
                 return 0;
             }
         }
 
         private void CreateCartProducts()
         {
-            Result<Cart_Products> resultCartProducts = cartProductsService.CreateCartProducts(new Cart_Products(
-                                    Cart, selectedProduct, QuantityText, selectedProduct.Price, selectedProduct.Discount ?? 0,
-                                    getSubotal(selectedProduct.Price, selectedProduct.Discount ?? 0, QuantityText))
-                                    );
-            if (resultCartProducts.Successful)
-                Cart_Products.Add(resultCartProducts.Data);
-        }
-
-        private decimal getSubotal(decimal price, decimal discount, decimal quantity)
-        {
-            return (price - discount) * quantity;
+            Cart_Products.Add(new Cart_Products(null, selectedProduct, QuantityText, selectedProduct.Price, selectedProduct.Discount ?? 0)); ;
         }
 
         private Cart_Products GetCartProductIfExistsInCart()
@@ -257,6 +248,66 @@ namespace Isi.ShoppingApp.Presentation.ViewModels
             LoginViewWindow.Show();
             window.Close();
 
+        }
+
+        public bool CanEmptyCart(object obj)
+        {
+            return Cart_Products.Count > 0;
+        }
+
+        public void EmptyCart(object obj)
+        {
+            if (CanEmptyCart(obj))
+                Cart_Products.Clear();
+            UpdateCart();
+            EmptyCartCommand.NotifyCanExecuteChanged();
+        }
+
+        private void UpdateCart()
+        {
+            List<Cart_Products> toSet = new List<Cart_Products>();
+            cart.Products = toSet;
+            foreach (Cart_Products cart_Products in Cart_Products)
+            {
+                toSet.Add(cart_Products);
+            }
+            cart.Products = toSet;
+            PlaceOrderCommand.NotifyCanExecuteChanged();
+        }
+
+        private bool CanPlaceOrder(object obj)
+        {
+            return Cart.Products.Count > 0;
+        }
+
+        private void PlaceOrder(object obj)
+        {
+            try
+            {
+                if (CanPlaceOrder(obj))
+                {
+                    Result<Cart> invoice = cartService.CreateCart(Cart);
+                    if (invoice.Successful)
+                    {
+                        Success?.Invoke($"Thank you for your purchase the invoice number is {invoice.Data.IdCart}, for a total of ${invoice.Data.Total}");
+                        EmptyCart(obj);
+                        AddToCartCommand.NotifyCanExecuteChanged();
+                        AddQuantityCommand.NotifyCanExecuteChanged();
+                        RemoveQuantityCommand.NotifyCanExecuteChanged();
+                        EmptyCartCommand.NotifyCanExecuteChanged();
+                        PlaceOrderCommand.NotifyCanExecuteChanged();
+                    }
+                    else
+                    {
+                        ErrorMessage?.Invoke(invoice.ErrorMessage);
+                    };
+                }
+            }
+            catch(Exception e)
+            {
+                //ErrorMessage?.Invoke($"Sorry, the purchase could not be completed.");
+                ErrorMessage?.Invoke(e.Message);
+            }
         }
     }
 }

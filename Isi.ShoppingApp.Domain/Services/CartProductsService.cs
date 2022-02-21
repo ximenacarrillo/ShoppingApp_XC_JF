@@ -17,17 +17,11 @@ namespace Isi.ShoppingApp.Domain.Services
         {
             repository = new CartProductRepository();
         }
-        public Result<Cart_Products> CreateCartProducts(Cart_Products cartProducts)
+
+        public List<Cart_Products> CreateProductosFromCart(Cart cart)
         {
-            ThrowIfCartProductsIsNull(cartProducts);
-
-            cartProducts = repository.CreateCartProducts(cartProducts);
-            if (cartProducts != null)
-                return Result<Cart_Products>.Success(cartProducts);
-
-            return Result<Cart_Products>.Error("Could not add new cart.");
+            return repository.CreateProductsFromCart(cart);
         }
-
         private static void ThrowIfCartProductsIsNull(Cart_Products cartProducts)
         {
             if (cartProducts == null)

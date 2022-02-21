@@ -156,6 +156,17 @@ namespace Isi.ShoppingApp.Data.Repositories
             return rowsAffected > 0;
         }
 
+        public bool UpdateListOfProducts(List<Product> products)
+        {
+            foreach (Product product in products)
+            {
+                bool response = UpdateProduct(product);
+                if (!response)
+                    return false;
+            }
+            return true;
+        }
+
         private Product ReadNextProduct(SqlDataReader reader)
         {
             long id = reader.GetInt64(0);

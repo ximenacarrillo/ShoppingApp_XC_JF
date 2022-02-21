@@ -37,24 +37,27 @@
                             <RowDefinition/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <Label x:Name="TitleSubtotalLabel"
-                       HorizontalAlignment="Left"
-                       FontWeight="Bold"
-                       Content="Subtotal:"
-                       Grid.Row="0" Grid.Column="0"/>
-                        <Label x:Name="SubtotalLabel"
-                       HorizontalAlignment="Left"
-                       Content="{Binding Path=Cart.Subtotal, FallbackValue='$0.00', StringFormat='{}{0:c}', UpdateSourceTrigger=PropertyChanged}"
-                       Grid.Row="0" Grid.Column="1"/>
+
                         <Label x:Name="TitleDiscountLabel"
                        HorizontalAlignment="Left"
                        FontWeight="Bold"
                        Content="Discount:"
-                       Grid.Row="1" Grid.Column="0"/>
+                       Grid.Row="0" Grid.Column="0"/>
                         <Label x:Name="DiscountLabel"
                        HorizontalAlignment="Left"
                        Content="{Binding Path=Cart.Discount, FallbackValue='$0.00', StringFormat='{}{0:c}', UpdateSourceTrigger=PropertyChanged}"
+                       Grid.Row="0" Grid.Column="1"/>
+                        <Label x:Name="TitleSubtotalLabel"
+                       HorizontalAlignment="Left"
+                       FontWeight="Bold"
+                       Content="Subtotal:"
+                       Grid.Row="1" Grid.Column="0"/>
+                        
+                        <Label x:Name="SubtotalLabel"
+                       HorizontalAlignment="Left"
+                       Content="{Binding Path=Cart.Subtotal, StringFormat='{}{0:c}', FallbackValue='$0.00', UpdateSourceTrigger=PropertyChanged}"
                        Grid.Row="1" Grid.Column="1"/>
+                        
                         <Label x:Name="TitleTaxLabel"
                        HorizontalAlignment="Left"
                        FontWeight="Bold"
@@ -62,7 +65,7 @@
                        Grid.Row="2" Grid.Column="0"/>
                         <Label x:Name="TaxesLabel"
                        HorizontalAlignment="Left"
-                       Content="{Binding Path=Cart.Taxes, FallbackValue='$0.00', StringFormat='{}{0:c}', UpdateSourceTrigger=PropertyChanged}"
+                       Content="{Binding Path=Cart.Taxes, FallbackValue='$0.00', UpdateSourceTrigger=PropertyChanged, StringFormat='{}{0:c}'}"
                        Grid.Row="2" Grid.Column="1"/>
                         <Label x:Name="TitleTotalLabel"
                        HorizontalAlignment="Left"
@@ -71,7 +74,7 @@
                        Grid.Row="3" Grid.Column="0"/>
                         <Label x:Name="TotalLabel"
                        HorizontalAlignment="Left"
-                       Content="{Binding Path=Taxes, FallbackValue='$0.00', StringFormat='{}{0:c}'}"
+                       Content="{Binding Path=Cart.Total, FallbackValue='$0.00', StringFormat='{}{0:c}', UpdateSourceTrigger=PropertyChanged}"
                        Grid.Row="3" Grid.Column="1"/>
                     </Grid>
                 </DockPanel>
@@ -80,7 +83,7 @@
             <DockPanel>
                 <StackPanel>
                     <Button x:Name="AddToCartButton" 
-                        Command="{Binding Path=AddToCartCommand}"
+                        Command="{Binding Path=PlaceOrderCommand}"
                             Width="110" Height="30" Margin="0">
                         <StackPanel Orientation="Horizontal">
                             <Image Source="{StaticResource PlaceOrderIcon}" />
