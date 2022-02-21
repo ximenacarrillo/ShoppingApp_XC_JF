@@ -1,5 +1,7 @@
 ﻿using Isi.ShoppingApp.Core.Entities;
 using Isi.ShoppingApp.Data.Repositories;
+using Isi.ShoppingApp.Domain.Services;
+using Isi.Utility.Results;
 using System;
 using System.Collections.Generic;
 
@@ -9,14 +11,10 @@ namespace Test
     {
         static void Main(string[] args)
         {
-            ProductRespository userRepository = new ();
-            List<Product> user = userRepository.GetAllProducts();
-
-            foreach (Product product in user)
-            {
-                Console.WriteLine(product.Name);
-
-            }
+            ProductService userRepository = new ();
+            Product product = userRepository.GetProductById(23).Data;
+            product.Name = "Ipad";
+            userRepository.UpdateProduct(product);
         }
     }
 }

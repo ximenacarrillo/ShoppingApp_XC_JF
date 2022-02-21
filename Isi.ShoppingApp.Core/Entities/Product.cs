@@ -72,6 +72,7 @@ namespace Isi.ShoppingApp.Core.Entities
 
         public Product(long idProduct, string name, decimal price, int stock, decimal? discount, int unitSold, Category category)
         {
+            IdProduct = idProduct;
             Name = name;
             Price = price;
             Stock = stock;
