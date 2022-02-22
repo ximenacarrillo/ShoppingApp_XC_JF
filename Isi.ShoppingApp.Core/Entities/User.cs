@@ -19,12 +19,20 @@ namespace Isi.ShoppingApp.Core.Entities
                     name = value;
             }
         }
-        public byte[] Password
+        public byte[] PasswordHash
         {
-            get => password;
+            get => passwordHash;
             set
             {
-                //TODO
+                passwordHash = value;
+            }
+        }
+        public byte[] PasswordSalt
+        {
+            get => passwordSalt;
+            set
+            {
+                passwordSalt = value;
             }
         }
         public Role Role
@@ -32,20 +40,23 @@ namespace Isi.ShoppingApp.Core.Entities
             get;
         }
         private string name;
-        private byte[] password;
+        private byte[] passwordHash;
+        private byte[] passwordSalt;
 
-        public User(string username, string name, Role role)
-            :this(0, username, name, role)
+        public User(string username, string name, byte[] passwordHash, byte[] passwordSalt, Role role)
+            :this(0, username, name, passwordHash, passwordSalt, role)
         { }
         public User(long idUser, User other)
-            :this(idUser, other.Username, other.Name, other.Role)
+            :this(idUser, other.Username, other.Name, other.passwordHash, other.passwordSalt, other.Role)
         {   }
-        public User(long idUser, string username, string name, Role role)
+        public User(long idUser, string username, string name, byte[] passwordHash, byte[] passwordSalt, Role role)
         {
             IdUser = idUser;
             Username = username;
             Name = name;
             Role = role;
+            PasswordHash = passwordHash;
+            PasswordSalt = passwordSalt;
         }
     }
 }
