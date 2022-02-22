@@ -298,7 +298,7 @@ namespace Isi.ShoppingApp.Presentation.ViewModels
         private void LogoutUser(object obj)
         {
             Visible = false;
-            Window LoginViewWindow = new LoginView();
+            LoginView LoginViewWindow = new LoginView();
             LoginViewWindow.Show();
             window.Close();
 
@@ -350,7 +350,7 @@ namespace Isi.ShoppingApp.Presentation.ViewModels
                     Result<Cart> invoice = cartService.CreateCart(Cart);
                     if (invoice.Successful)
                     {
-                        Success?.Invoke($"Thank you for your purchase the invoice number is {invoice.Data.IdCart}, for a total of ${invoice.Data.Total}");
+                        Success?.Invoke($"Thank you for your purchase. The invoice number is {invoice.Data.IdCart}, for a total of ${invoice.Data.Total}.");
                         EmptyCart(obj);
                         SelectedProduct = null;
                         AddToCartCommand.NotifyCanExecuteChanged();
