@@ -26,9 +26,15 @@ namespace Isi.ShoppingApp.Presentation.Views
             InitializeComponent();
             DataContext = viewModel;
             if (viewModel.user.Role.IdRole == Role.ADMIN_ROLE)
+            {
                 TitleOrderLabel.Content = "All Orders";
+                TotalSalesPanel.Visibility = Visibility.Visible;
+            }
             else
+            {
+                OrdersDataGrid.Columns[5].Visibility = Visibility.Hidden;
                 TitleOrderLabel.Content = "My Orders";
+            }
 
         }
     }

@@ -29,6 +29,7 @@ namespace Isi.ShoppingApp.Presentation.ViewModels
         #region Data fields
         public string UserName { get; set; }
         private int quantityText { get; set; }
+        public decimal TotalSales { get => cartService.getTotalSales(); }
         public int QuantityText
         {
             get => quantityText;
@@ -41,6 +42,7 @@ namespace Isi.ShoppingApp.Presentation.ViewModels
             }
         }
         public ObservableCollection<Product> Products { get; }
+        public ObservableCollection<CartSold> Orders { get; }
         private Product selectedProduct;
         public Product SelectedProduct
         {
@@ -111,6 +113,7 @@ namespace Isi.ShoppingApp.Presentation.ViewModels
             Cart = new Cart(user);
             
             Products = new ObservableCollection<Product>(productService.GetAllProducts());
+            Orders = new ObservableCollection<CartSold>(GetCarts());
             Cart_Products = new ObservableCollection<Cart_Products>();            
 
             LogoutCommand = new DelegateCommand(LogoutUser);
@@ -125,8 +128,19 @@ namespace Isi.ShoppingApp.Presentation.ViewModels
             ViewOrdersCommand = new DelegateCommand(ViewOrders);
         }
 
+        private List<CartSold> GetCarts()
+        {
+            if (user.Role.IdRole == Role.ADMIN_ROLE)
+                return cartService.GetAllCarts();
+            else
+                return cartService.GetAllCartsOfClient(user);
+
+        }
+
         private void ViewOrders(object obj)
         {
+            NotifyPropertyChanged(nameof(Orders));
+            ViewOrdersCommand.NotifyCanExecuteChanged();
             OrdersView ordersView = new OrdersView(this);
             ordersView.Show();
         }
@@ -299,6 +313,15 @@ namespace Isi.ShoppingApp.Presentation.ViewModels
             cart.Products = toSet;
             PlaceOrderCommand.NotifyCanExecuteChanged();
         }
+        private void UpdateOrders()
+        {
+            Orders.Clear();
+            
+            foreach (CartSold order in GetCarts())
+                Orders.Add(order);
+
+            ViewOrdersCommand.NotifyCanExecuteChanged();
+        }
 
         private bool CanPlaceOrder(object obj)
         {
@@ -322,6 +345,7 @@ namespace Isi.ShoppingApp.Presentation.ViewModels
                         RemoveQuantityCommand.NotifyCanExecuteChanged();
                         EmptyCartCommand.NotifyCanExecuteChanged();
                         PlaceOrderCommand.NotifyCanExecuteChanged();
+                        UpdateOrders();
                     }
                     else
                     {

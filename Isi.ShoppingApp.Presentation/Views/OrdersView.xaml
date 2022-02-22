@@ -6,7 +6,9 @@
         xmlns:local="clr-namespace:Isi.ShoppingApp.Presentation.Views"
         mc:Ignorable="d"
         Title="View Orders" Height="450" Width="800">
-    <DockPanel Background="White">
+ 
+    
+    <DockPanel Background="White" Margin="10">
         <StackPanel>
             <DockPanel>
                 <Label x:Name="TitleOrderLabel"
@@ -20,19 +22,32 @@
                 <DataGrid ItemsSource="{Binding Path=Orders}"
                               AutoGenerateColumns = "False" 
                               SelectionMode = "Single" 
-                              x:Name="ProductsDataGrid"
-                              MinHeight="160"
-                              MaxHeight="160"
+                              x:Name="OrdersDataGrid"
+                              MinHeight="300"
+                              MaxHeight="300"
                                VerticalScrollBarVisibility="Auto">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Width="*" Binding="{Binding Path=SoldDate, Mode=TwoWay}" Header="SoldDate" IsReadOnly="True" />
-                        <DataGridTextColumn Width="*" Binding="{Binding Path=Discount, StringFormat='{}{0:c}', Mode=TwoWay}" Header="Discount(%)" IsReadOnly="True"/>
-                        <DataGridTextColumn Width="*" Binding="{Binding Path=Subtotal, StringFormat='{}{0:c}', Mode=TwoWay}" Header="Subtotal" IsReadOnly="True"/>
-                        <DataGridTextColumn Width="*" Binding="{Binding Path=Taxes, StringFormat='{}{0:c}', Mode=TwoWay}" Header="Taxes" IsReadOnly="True"/>
-                        <DataGridTextColumn Width="*" Binding="{Binding Path=Total, StringFormat='{}{0:c}', Mode=TwoWay}" Header="Total" IsReadOnly="True"/>
-                        <DataGridTextColumn Width="*" Binding="{Binding Path=CustomerName, Mode=TwoWay}" Header="Customer Name" IsReadOnly="True"/>
+                        <DataGridTextColumn x:Name="SoldDateColumn" Width="*" Binding="{Binding Path=SoldDate, Mode=OneWay}" Header="SoldDate" IsReadOnly="True" />
+                        <DataGridTextColumn x:Name="DiscountColumn" Width="*" Binding="{Binding Path=Discount, StringFormat='{}{0:c}', Mode=OneWay}" Header="Discount" IsReadOnly="True"/>
+                        <DataGridTextColumn x:Name="SubtotalColumn" Width="*" Binding="{Binding Path=Subtotal, StringFormat='{}{0:c}', Mode=OneWay}" Header="Subtotal" IsReadOnly="True"/>
+                        <DataGridTextColumn x:Name="TaxesColumn" Width="*" Binding="{Binding Path=Taxes, StringFormat='{}{0:c}', Mode=OneWay}" Header="Taxes" IsReadOnly="True"/>
+                        <DataGridTextColumn x:Name="TotalColumn" Width="*" Binding="{Binding Path=Total, StringFormat='{}{0:c}', Mode=OneWay}" Header="Total" IsReadOnly="True"/>
+                        <DataGridTextColumn x:Name="CustomerNameColumn" Width="*" Binding="{Binding Path=CustomerName, Mode=OneWay}" Header="Customer Name" IsReadOnly="True"/>
                     </DataGrid.Columns>
                 </DataGrid>
+            </DockPanel>
+            <DockPanel x:Name="TotalSalesPanel" Visibility="Hidden"> 
+                <StackPanel>
+                    <Label x:Name="TitleTotalSalesLabel"
+                           HorizontalAlignment="Left"
+                           FontWeight="Bold"
+                           Content="Total in sales for the store (CAD):"/>
+                </StackPanel>
+                <StackPanel>
+                    <Label x:Name="NameProductSelectedLabel"
+                           HorizontalAlignment="Left"
+                           Content="{Binding Path=TotalSales, FallbackValue='$0.00'}"/>
+                </StackPanel>
             </DockPanel>
         </StackPanel>
     </DockPanel>
