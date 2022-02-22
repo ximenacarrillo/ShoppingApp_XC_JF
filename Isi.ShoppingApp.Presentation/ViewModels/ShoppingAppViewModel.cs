@@ -12,10 +12,15 @@ using System.Windows;
 
 namespace Isi.ShoppingApp.Presentation.ViewModels
 {
+
+    //Created by Hector Fonseca
     public delegate void ErrorMessageHandler(string message);
     public delegate void SuccessHandel(string message);
+
+
     public class ShoppingAppViewModel : ViewModel, INotifyPropertyChanged
     {
+        //Created by Hector Fonseca
         public event ErrorMessageHandler ErrorMessage;
         public event SuccessHandel Success;
 
@@ -100,7 +105,9 @@ namespace Isi.ShoppingApp.Presentation.ViewModels
             }
         }
         #endregion
-       
+
+
+        //Created by Ximena Carrillo and edited by Hector Fonseca
         //Constructor
         public ShoppingAppViewModel(User user, Window window)
         {
@@ -144,34 +151,34 @@ namespace Isi.ShoppingApp.Presentation.ViewModels
             OrdersView ordersView = new OrdersView(this);
             ordersView.Show();
         }
-
+        //Created by Ximena Carrillo
         private void RemoveFromCart(object obj)
         {
             Cart_Products.Remove(SelectedCartProduct);
             UpdateCart();
             EmptyCartCommand.NotifyCanExecuteChanged();
         }
-
+        //Created by Ximena Carrillo
         private bool CanRemoveFromCart(object arg)
         {
             return SelectedCartProduct != null
                 && Cart_Products.Count > 0;
         }
-
+        //Created by Ximena Carrillo
         private void RemoveUnitToProduct(object obj)
         {
             if (CanRemoveUnitToProduct(obj)) 
                 SelectedCartProduct.Quantity--;
             EmptyCartCommand.NotifyCanExecuteChanged();
         }
-
+        //Created by Ximena Carrillo
         private bool CanRemoveUnitToProduct(object arg)
         {
             return SelectedCartProduct != null
                 && SelectedCartProduct.ProductObject.Available
                 && ValidateQuantityToRemoveVsStock(SelectedCartProduct, 1) >= 0;
         }
-
+        //Created by Ximena Carrillo
         private void AddUnitToProduct(object obj)
         {
             if (CanAddUnitToProduct(obj))
@@ -180,14 +187,14 @@ namespace Isi.ShoppingApp.Presentation.ViewModels
             EmptyCartCommand.NotifyCanExecuteChanged();
 
         }
-
+        //Created by Ximena Carrillo
         private bool CanAddUnitToProduct(object arg)
         {
             return SelectedCartProduct != null
                 && SelectedCartProduct.ProductObject.Available
                 && ValidateQuantityToAddVsStock(SelectedCartProduct, 1) > 0;
         }
-
+        //Created by Ximena Carrillo and edited by Hector Fonseca
         private void AddToCart(object obj)
         {
             
@@ -212,7 +219,7 @@ namespace Isi.ShoppingApp.Presentation.ViewModels
             RemoveQuantityCommand.NotifyCanExecuteChanged();
             EmptyCartCommand.NotifyCanExecuteChanged();
         }
-
+        //Created by Ximena Carrillo
         private int ValidateQuantityToAddVsStock(Cart_Products cartProduct, int quantityToAdd)
         {
             int total = cartProduct.Quantity + quantityToAdd;
@@ -224,6 +231,8 @@ namespace Isi.ShoppingApp.Presentation.ViewModels
                 return 0;
             }
         }
+
+        //Created by Ximena Carrillo
         private int ValidateQuantityToRemoveVsStock(Cart_Products cartProduct, int quantityToRemove)
         {
             int total = cartProduct.Quantity - quantityToRemove;
@@ -236,11 +245,13 @@ namespace Isi.ShoppingApp.Presentation.ViewModels
             }
         }
 
+        //Created by Ximena Carrillo
         private void CreateCartProducts()
         {
             Cart_Products.Add(new Cart_Products(null, selectedProduct, QuantityText, selectedProduct.Price, selectedProduct.Discount ?? 0)); ;
         }
 
+        //Created by Ximena Carrillo
         private Cart_Products GetCartProductIfExistsInCart()
         {
             foreach (Cart_Products cartProductItem in Cart_Products)
@@ -250,6 +261,7 @@ namespace Isi.ShoppingApp.Presentation.ViewModels
             return null;
         }
 
+        //Created by Ximena Carrillo
         private bool CanAddToCart(object arg)
         {
             return selectedProduct != null
@@ -257,6 +269,7 @@ namespace Isi.ShoppingApp.Presentation.ViewModels
                 && QuantityText <= selectedProduct.Stock;
         }
 
+        //Created by Ximena Carrillo
         private void FilterProduct(object obj)
         {
             Products.Clear();
@@ -268,6 +281,7 @@ namespace Isi.ShoppingApp.Presentation.ViewModels
             }
         }
 
+        //Created by Ximena Carrillo
         private void ClearFilter(object obj)
         {
             if(Products.Count > 0)
@@ -280,6 +294,7 @@ namespace Isi.ShoppingApp.Presentation.ViewModels
 
         }
 
+        //Created by Ximena Carrillo
         private void LogoutUser(object obj)
         {
             Visible = false;
@@ -289,10 +304,12 @@ namespace Isi.ShoppingApp.Presentation.ViewModels
 
         }
 
+        //Created by Hector Fonseca
         public bool CanEmptyCart(object obj)
         {
             return Cart_Products.Count > 0;
         }
+        //Created by Hector Fonseca
 
         public void EmptyCart(object obj)
         {
@@ -301,6 +318,7 @@ namespace Isi.ShoppingApp.Presentation.ViewModels
             UpdateCart();
             EmptyCartCommand.NotifyCanExecuteChanged();
         }
+        //Created by Hector Fonseca
 
         private void UpdateCart()
         {
@@ -312,13 +330,7 @@ namespace Isi.ShoppingApp.Presentation.ViewModels
             }
             cart.Products = toSet;
             PlaceOrderCommand.NotifyCanExecuteChanged();
-        }
-        private void UpdateOrders()
-        {
-            Orders.Clear();
-            
-            foreach (CartSold order in GetCarts())
-                Orders.Add(order);
+        
 
             ViewOrdersCommand.NotifyCanExecuteChanged();
         }
@@ -328,6 +340,7 @@ namespace Isi.ShoppingApp.Presentation.ViewModels
             return Cart.Products.Count > 0;
         }
 
+        //Created by Hector Fonseca and edited by Ximena Carrillo
         private void PlaceOrder(object obj)
         {
             try
@@ -355,8 +368,20 @@ namespace Isi.ShoppingApp.Presentation.ViewModels
             }
             catch(Exception e)
             {
-                ErrorMessage?.Invoke(e.Message);
+                ErrorMessage?.Invoke($"Sorry, the purchase could not be completed.");
             }
+        }
+        //Created by Ximena Carrillo
+        private void UpdateOrders()
+        {
+            Orders.Clear();
+
+            foreach (CartSold order in GetCarts())
+                Orders.Add(order);
+
+
+
+            ViewOrdersCommand.NotifyCanExecuteChanged();
         }
     }
 }

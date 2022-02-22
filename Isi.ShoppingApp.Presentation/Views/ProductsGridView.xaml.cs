@@ -18,6 +18,8 @@ namespace Isi.ShoppingApp.Presentation.Views
     /// <summary>
     /// Interaction logic for ProductsGridView.xaml
     /// </summary>
+    /// 
+    //Created by Ximena Carrillo
     public partial class ProductsGridView : UserControl
     {
         public ProductsGridView()

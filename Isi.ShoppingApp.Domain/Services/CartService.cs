@@ -19,6 +19,7 @@ namespace Isi.ShoppingApp.Domain.Services
             productService = new ProductService();
 
         }
+        //Created by Hector Fonseca and edited by Ximena Carrillo
         public Result<Cart> CreateCart(Cart cart)
         {
             ThrowIfCartIsNull(cart);
@@ -36,7 +37,7 @@ namespace Isi.ShoppingApp.Domain.Services
 
             return Result<Cart>.Error("Sorry, the purchase could not be completed.");
         }
-
+        //Created by Hector Fonseca and edited by Ximena Carrillo
         public List<CartSold> GetAllCarts()
         {
             return cartRepository.GetAllCarts();
@@ -45,12 +46,13 @@ namespace Isi.ShoppingApp.Domain.Services
         {
             return cartRepository.GetAllCartsOfClient(user);
         }
-
+        //Created by Hector Fonseca
         public decimal getTotalSales()
         {
             return cartRepository.GetDataStore();
         }
 
+        //Created by Ximena Carrillo
         private static void ThrowIfCartIsNull(Cart cart)
         {
             if (cart == null)

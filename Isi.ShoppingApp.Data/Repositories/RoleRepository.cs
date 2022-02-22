@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Isi.ShoppingApp.Data.Repositories
 {
+    //Created by Hector Fonseca
     public class RoleRepository
     {
         private readonly string connectionString;

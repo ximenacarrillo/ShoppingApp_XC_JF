@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Isi.ShoppingApp.Data.Repositories
 {
+    //Created by Hector Fonseca
     public class CategoryRepository
     {
         private readonly string connectionString;

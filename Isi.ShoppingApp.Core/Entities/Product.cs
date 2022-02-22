@@ -23,7 +23,7 @@ namespace Isi.ShoppingApp.Core.Entities
                 }
             }
         }
-
+        //Created by Hector Fonseca and edited by Ximena Carrillo
         public decimal Price
         {
             get => price;
@@ -37,6 +37,7 @@ namespace Isi.ShoppingApp.Core.Entities
             }
         }
 
+        //Created by Hector Fonseca and edited by Ximena Carrillo
         public int Stock
         {
             get => stock;
@@ -51,6 +52,7 @@ namespace Isi.ShoppingApp.Core.Entities
             }
         }
 
+        //Created by Hector Fonseca and edited by Ximena Carrillo
         public decimal? Discount
         {
             get => discount;
@@ -64,6 +66,7 @@ namespace Isi.ShoppingApp.Core.Entities
             }
         }
 
+        //Created by Hector Fonseca and edited by Ximena Carrillo
         public int UnitSold
         {
             get => unitSold;
@@ -78,6 +81,7 @@ namespace Isi.ShoppingApp.Core.Entities
             }
         }
 
+        //Created by Hector Fonseca
         public Category Category
         {
             get;
@@ -95,6 +99,7 @@ namespace Isi.ShoppingApp.Core.Entities
         private decimal? discount;
         private int unitSold;
 
+        //Created by Hector Fonseca
         public Product(long idProduct, string name, decimal price, int stock, decimal? discount, int unitSold, Category category)
         {
             IdProduct = idProduct;
@@ -105,23 +110,26 @@ namespace Isi.ShoppingApp.Core.Entities
             UnitSold = unitSold;
             Category = category;
         }
-
+        //Created by Hector Fonseca
         public Product(long idProduct, Product other)
             :this(idProduct, other.Name, other.Price, other.stock, other.Discount, other.UnitSold, other.Category)
         { }
+        //Created by Hector Fonseca 
         public Product(string name, decimal price, int stock, decimal? discount, Category category)
             :this(0, name, price, stock, discount, 0, category)
         { }
-
+        //Created by Hector Fonseca
         private void NotifyPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+        //Created by Hector Fonseca
 
         public void AddStock(int quantity)
         {
             Stock += quantity;
         }
+        //Created by Hector Fonseca
 
         public void Sale(int quantity)
         {

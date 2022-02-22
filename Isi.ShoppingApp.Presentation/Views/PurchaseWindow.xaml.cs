@@ -7,6 +7,9 @@ namespace Isi.ShoppingApp.Presentation.Views
     /// <summary>
     /// Interaction logic for PurchaseWindow.xaml
     /// </summary>
+    ///
+    
+    //Created by Ximena Carrillo
     public partial class PurchaseWindow : Window
     {
         

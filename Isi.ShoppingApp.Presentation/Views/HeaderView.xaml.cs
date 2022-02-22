@@ -18,6 +18,7 @@ namespace Isi.ShoppingApp.Presentation.Views
     /// <summary>
     /// Interaction logic for HeaderView.xaml
     /// </summary>
+    /// //Created by Ximena Carrillo
     public partial class HeaderView : UserControl
     {
         public HeaderView()

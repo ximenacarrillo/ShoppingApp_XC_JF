@@ -10,6 +10,8 @@ using System.Windows.Controls;
 
 namespace Isi.ShoppingApp.Presentation.ViewModels
 {
+
+    //Created by Ximena Carrillo
     public class LoginViewModel : ViewModel, INotifyPropertyChanged
     {
         public event Action<string> CommandFailed;
@@ -52,6 +54,8 @@ namespace Isi.ShoppingApp.Presentation.ViewModels
         }
         #endregion
 
+        //Created by Ximena Carrillo
+
         private void LoginUser(object parameter)
         {
             if (CanLoginUser(parameter))
@@ -70,7 +74,7 @@ namespace Isi.ShoppingApp.Presentation.ViewModels
                 }
             }
         }
-
+        //Created by Ximena Carrillo
         private bool CanLoginUser(object obj)
         {     
             return !string.IsNullOrEmpty(UserNameText)

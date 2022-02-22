@@ -17,8 +17,7 @@ namespace Isi.ShoppingApp.Domain.Services
             repository = new ProductRepository();   
         }
 
-        
-
+        //Created edited by Ximena Carrillo
         public Result<Product> GetProductById(long id)
         {
             Product product = repository.GetProductById(id);
@@ -26,18 +25,19 @@ namespace Isi.ShoppingApp.Domain.Services
                 return Result<Product>.Success(product);
             return Result<Product>.Error($"No product found with id {id}.");
         }
+        //Created by Hector Fonseca
         public List<Product> GetAllProducts()
         {
             return repository.GetAllProducts();
         }
-        
 
+        //Created by Ximena Carrillo
         public List<Product> GetProductsByFirstName(string filterText)
         {
             return repository.GetProductsByFirstName(filterText);
         }
         /// <exception cref="ArgumentNullException"/>
-
+        //Created by Hector Fonseca and edited by Ximena Carrillo
         public Result RemoveProduct(Product product)
         {
             ThrowIfProductIsNull(product);
@@ -51,7 +51,7 @@ namespace Isi.ShoppingApp.Domain.Services
             return Result.Success();
         }
         /// <exception cref="ArgumentNullException"/>
-
+        //Created by Hector Fonseca and edited by Ximena Carrillo
         public Result<Product> AddProduct(Product product)
         {
             ThrowIfProductIsNull(product);
@@ -64,6 +64,7 @@ namespace Isi.ShoppingApp.Domain.Services
         }
 
         /// <exception cref="ArgumentNullException"/>
+        /// //Created by Hector Fonseca and edited by Ximena Carrillo
         public Result UpdateProduct(Product product)
         {
             ThrowIfProductIsNull(product);
@@ -78,6 +79,7 @@ namespace Isi.ShoppingApp.Domain.Services
             return Result.Error($"Failed to update product with id {product.IdProduct}.");
         }
 
+        //Created by Ximena Carrillo
         private static void ThrowIfProductIsNull(Product product)
         {
             if (product == null)

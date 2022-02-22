@@ -16,6 +16,7 @@ namespace Isi.ShoppingApp.Data.Repositories
             connectionString = ConfigurationManager.ConnectionStrings["ShoppingDatabase"].ConnectionString;
         }
 
+        //Created by Hector Fonseca
         public Cart CreateCart(Cart cart)
         {
             using SqlConnection connection = new SqlConnection(connectionString);
@@ -40,6 +41,7 @@ namespace Isi.ShoppingApp.Data.Repositories
             return new Cart(id, cart);
         }
 
+        //Created by Hector Fonseca
         public List<CartSold> GetAllCarts()
         {
 
@@ -60,7 +62,7 @@ namespace Isi.ShoppingApp.Data.Repositories
 
             return carts;
         }
-
+        //Created by Hector Fonseca
         public List<CartSold> GetAllCartsOfClient(User user)
         {
 
@@ -85,6 +87,7 @@ namespace Isi.ShoppingApp.Data.Repositories
             return carts;
         }
 
+        //Created by Hector Fonseca
         public decimal GetDataStore()
         {
             using SqlConnection connection = new SqlConnection(connectionString);
@@ -100,6 +103,7 @@ namespace Isi.ShoppingApp.Data.Repositories
             return 0;
         }
 
+        //Created by Hector Fonseca
         private CartSold ReadNextCartSold(SqlDataReader reader)
         {
             DateTime dateSold = reader.GetDateTime(0);

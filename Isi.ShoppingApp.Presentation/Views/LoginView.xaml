@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Title="Shopping App" Height="161" Width="252" WindowStartupLocation="CenterScreen" ResizeMode="NoResize"
         x:Name="LoginViewWindow">
+    <!--Created by Ximena Carrillo-->
     <Window.Resources>
         <Style TargetType="Separator">
             <Setter Property="Width" Value="10"/>

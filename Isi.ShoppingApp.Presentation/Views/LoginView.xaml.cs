@@ -6,6 +6,8 @@ namespace Isi.ShoppingApp.Presentation.Views
     /// <summary>
     /// Interaction logic for Login.xaml
     /// </summary>
+    /// 
+    //Created by Ximena Carrillo
     public partial class LoginView : Window
     {
         LoginViewModel loginViewModel;

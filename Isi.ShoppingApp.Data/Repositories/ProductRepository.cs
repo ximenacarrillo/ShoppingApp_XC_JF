@@ -18,6 +18,7 @@ namespace Isi.ShoppingApp.Data.Repositories
             connectionString = ConfigurationManager.ConnectionStrings["ShoppingDatabase"].ConnectionString;
         }
 
+        //Created by Hector Fonseca
         public bool ProductExist(long id)
         {
             return GetProductById(id) != null;
@@ -44,6 +45,7 @@ namespace Isi.ShoppingApp.Data.Repositories
             return null;
         }
 
+        //Created by Hector Fonseca
         public List<Product> GetProductsByFirstName(string filterText)
         {
             using SqlConnection connection = new SqlConnection(connectionString);
@@ -68,6 +70,7 @@ namespace Isi.ShoppingApp.Data.Repositories
             return products;
         }
 
+        //Created by Hector Fonseca
         public List<Product> GetAllProducts()
         {
             using SqlConnection connection = new SqlConnection(connectionString);
@@ -78,9 +81,6 @@ namespace Isi.ShoppingApp.Data.Repositories
                                     "FROM Products " +
                                     "INNER JOIN Categories " +
                                     "ON Products.FK_IdCategory = Categories.IdCategory";
-
-
-
             using SqlDataReader reader = command.ExecuteReader();
 
             List<Product> products = new List<Product>();
@@ -88,12 +88,12 @@ namespace Isi.ShoppingApp.Data.Repositories
                 products.Add(ReadNextProduct(reader));
             return products;
         }
-
+        //Created by Hector Fonseca
         public bool DeleteProduct(Product product)
         {
             return DeleteProduct(product.IdProduct);
         }
-
+        //Created by Hector Fonseca
         public bool DeleteProduct(long id)
         {
             using SqlConnection connection = new SqlConnection(connectionString);
@@ -109,6 +109,7 @@ namespace Isi.ShoppingApp.Data.Repositories
             return rowsAffected > 0;
         }
 
+        //Created by Hector Fonseca
         public Product CreateProduct(Product product)
         {
             using SqlConnection connection = new SqlConnection(connectionString);
@@ -133,6 +134,7 @@ namespace Isi.ShoppingApp.Data.Repositories
             return new Product(id, product);
         }
 
+        //Created Hector Fonseca
         public bool UpdateProduct(Product product)
         {
             using SqlConnection connection = new SqlConnection(connectionString);
@@ -156,6 +158,7 @@ namespace Isi.ShoppingApp.Data.Repositories
             return rowsAffected > 0;
         }
 
+        //Created by Hector Fonseca
         public bool UpdateListOfProducts(List<Product> products)
         {
             foreach (Product product in products)
@@ -167,6 +170,7 @@ namespace Isi.ShoppingApp.Data.Repositories
             return true;
         }
 
+        //Created by Hector Fonseca
         private Product ReadNextProduct(SqlDataReader reader)
         {
             long id = reader.GetInt64(0);
