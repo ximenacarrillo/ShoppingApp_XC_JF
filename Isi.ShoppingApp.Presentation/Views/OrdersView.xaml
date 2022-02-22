@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:Isi.ShoppingApp.Presentation.Views"
         mc:Ignorable="d"
         Title="View Orders" Height="450" Width="800">
- 
-    
+    <!--Created by Ximena Carrillo-->
+
     <DockPanel Background="White" Margin="10">
         <StackPanel>
             <DockPanel>

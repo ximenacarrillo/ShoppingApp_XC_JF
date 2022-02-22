@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Isi.ShoppingApp.Core.Entities
 {
+    //Created by Hector Fonseca
     public class User
     {
         public long IdUser { get; }

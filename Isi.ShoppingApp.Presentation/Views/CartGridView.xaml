@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:Isi.ShoppingApp.Presentation.Views"
              mc:Ignorable="d" 
              d:DesignHeight="290" d:DesignWidth="800">
+    <!--Created by Ximena Carrillo-->
     <UserControl.Resources>
         <BitmapImage x:Key="AddProductQuantityIcon" UriSource="./img/addProductQuantity.png"/>
         <BitmapImage x:Key="RemoveProductQuantityIcon" UriSource="./img/removeProductQuantities.png"/>

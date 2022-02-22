@@ -20,7 +20,7 @@ namespace Isi.ShoppingApp.Data.Repositories
         {
            connectionString = ConfigurationManager.ConnectionStrings["ShoppingDatabase"].ConnectionString;
         }
-
+        //Created by Hector Fonseca
         public User GetUser(long id)
         {
             using SqlConnection connection = new SqlConnection(connectionString);
@@ -41,6 +41,7 @@ namespace Isi.ShoppingApp.Data.Repositories
                 return ReadNextUser(reader);
             return null;
         }
+        //Created by Hector Fonseca
         public User GetUserByUsername(string username)
         {
             using SqlConnection connection = new SqlConnection(connectionString);
@@ -63,6 +64,7 @@ namespace Isi.ShoppingApp.Data.Repositories
             return null;
         }
 
+        //Created by Hector Fonseca
         public User CreateUser(User user)
         {
             using SqlConnection connection = new SqlConnection(connectionString);
@@ -86,6 +88,7 @@ namespace Isi.ShoppingApp.Data.Repositories
             return new User(id, user);
         }
 
+        //Created by Hector Fonseca and by edited Ximena Carrillo
         public HashedPassword GetPassword(string userName)
         {
             using SqlConnection connection = new SqlConnection(connectionString);
@@ -107,12 +110,7 @@ namespace Isi.ShoppingApp.Data.Repositories
             return null;
         }
 
-        private byte[] ReadPassword(SqlDataReader reader)
-        {
-            byte[] password = (byte[])reader[0];
-            return password;
-        }
-
+        //Created by Hector Fonseca
         private User ReadNextUser(SqlDataReader reader)
         {
             long id = reader.GetInt64(0);

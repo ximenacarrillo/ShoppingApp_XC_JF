@@ -19,10 +19,5 @@ namespace Isi.ShoppingApp.Domain.Services
         {
             return repository.CreateProductsFromCart(cart);
         }
-        private static void ThrowIfCartProductsIsNull(Cart_Products cartProducts)
-        {
-            if (cartProducts == null)
-                throw new ArgumentNullException(nameof(cartProducts));
-        }
     }
 }

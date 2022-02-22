@@ -10,12 +10,13 @@ namespace Isi.ShoppingApp.Data.Repositories
     public class CartProductRepository
     {
         private readonly string connectionString;
-
+        //Created by Hector Fonseca
         public CartProductRepository()
         {
             connectionString = ConfigurationManager.ConnectionStrings["ShoppingDatabase"].ConnectionString;
         }
 
+        //Created by Hector Fonseca
         public Cart_Products CreateCartProducts(Cart_Products cartProduct, long idCart)
         {
             using SqlConnection connection = new SqlConnection(connectionString);
@@ -39,7 +40,7 @@ namespace Isi.ShoppingApp.Data.Repositories
             return new Cart_Products(id, cartProduct);
         }
 
-
+        //Created by Hector Fonseca
         public List<Cart_Products> CreateProductsFromCart(Cart cart)
         {
             List<Cart_Products> products = new List<Cart_Products>();

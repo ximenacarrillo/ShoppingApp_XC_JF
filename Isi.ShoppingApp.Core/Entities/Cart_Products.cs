@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 
 namespace Isi.ShoppingApp.Core.Entities
 {
+    //Created by Hector Fonseca
+
     public class Cart_Products : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;

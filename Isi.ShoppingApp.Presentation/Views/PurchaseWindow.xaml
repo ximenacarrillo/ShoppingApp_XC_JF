@@ -8,6 +8,7 @@
         Title="Shopping App" Height="849" Width="800"
         x:Name="PuchaseWindow"
         WindowStartupLocation="CenterScreen"        >
+    <!--Created by Ximena Carrillo-->
     <Window.Resources>
         <Style TargetType="Separator">
             <Setter Property="Width" Value="10"/>

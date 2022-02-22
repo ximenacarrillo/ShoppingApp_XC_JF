@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Isi.ShoppingApp.Core.Entities
 {
+    //Created by Hector Fonseca
     public class Role
     {
         public const int ADMIN_ROLE = 1;

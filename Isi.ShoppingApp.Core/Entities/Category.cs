@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace Isi.ShoppingApp.Core.Entities
 {
+    //Created by Hector Fonseca and edited by Ximena Carrillo
+
     public class Category
     {
         public long IdCategory { get; }

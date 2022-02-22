@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 
 namespace Isi.ShoppingApp.Core.Entities
 {
+    //Created by Hector Fonseca
+
     public class CartSold
     {
         public DateTime SoldDate { get; }

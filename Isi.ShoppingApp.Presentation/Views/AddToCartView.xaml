@@ -6,6 +6,9 @@
              xmlns:local="clr-namespace:Isi.ShoppingApp.Presentation.Views"
              mc:Ignorable="d" 
              d:DesignHeight="40" d:DesignWidth="600">
+
+    <!--Created by Ximena Carrillo-->
+
     <UserControl.Resources>
         <BitmapImage x:Key="AddToCartIcon" UriSource="./img/AddToCart.png"/>
     </UserControl.Resources>

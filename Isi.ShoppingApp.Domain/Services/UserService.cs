@@ -13,6 +13,8 @@ namespace Isi.ShoppingApp.Domain.Services
         {
             repository = new UserRepository();
         }
+
+        //Created by Ximena Carrillo and edited by Hector Fonseca
         public Result<User> LoginUser(string password, string username)
         {
             HashedPassword storedPassword = repository.GetPassword(username);
@@ -27,6 +29,7 @@ namespace Isi.ShoppingApp.Domain.Services
             return Result<User>.Error($"Username or password incorrect.");
         }
 
+        //Created by Hector Fonseca
         public Result<User> CreateUser(User user)
         {
             ThrowIfUserIsNull(user);
@@ -37,7 +40,8 @@ namespace Isi.ShoppingApp.Domain.Services
 
             return Result<User>.Error("Could not be created a new user.");
         }
-        
+
+        //Created by Ximena Carrillo
         private static void ThrowIfUserIsNull(User user)
         {
             if (user == null)

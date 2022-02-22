@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:Isi.ShoppingApp.Presentation.Views"
              mc:Ignorable="d" 
              d:DesignHeight="189.474" d:DesignWidth="423.546">
+    <!--Created by Ximena Carrillo-->
     <UserControl.Resources>
         <BitmapImage x:Key="PlaceOrderIcon" UriSource="./img/PlaceOrder.png"/>
     </UserControl.Resources>

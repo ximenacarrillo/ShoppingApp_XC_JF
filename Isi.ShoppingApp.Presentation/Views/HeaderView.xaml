@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Isi.ShoppingApp.Presentation.Views"
              mc:Ignorable="d" d:DesignWidth="800" Height="50">
+    <!--Created by Ximena Carrillo-->
     <UserControl.Resources>
         <BitmapImage x:Key="LogoutIcon" UriSource="./img/LogOut.png"/>
         <BitmapImage x:Key="ViewOrdersIcon" UriSource="./img/ViewOrders.png"/>

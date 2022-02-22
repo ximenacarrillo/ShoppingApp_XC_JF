@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Isi.ShoppingApp.Presentation.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    
+    <!--Created by Ximena Carrillo-->
     <DockPanel Background="White">
         <StackPanel>
             
