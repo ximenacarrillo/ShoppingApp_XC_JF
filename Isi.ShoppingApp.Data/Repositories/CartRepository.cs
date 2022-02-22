@@ -91,13 +91,13 @@ namespace Isi.ShoppingApp.Data.Repositories
             connection.Open();
 
             using SqlCommand command = connection.CreateCommand();
-            command.CommandText = "SELECT SUM(Carts.Total) as TotalSells " +
+            command.CommandText = "SELECT SUM(Carts.Total) " +
                                     "FROM Carts;";
 
             using SqlDataReader reader = command.ExecuteReader();
-
-            return reader.GetDecimal(0);
-          
+            if(reader.Read())
+                return reader.GetDecimal(0);
+            return 0;
         }
 
         private CartSold ReadNextCartSold(SqlDataReader reader)

@@ -41,6 +41,15 @@ namespace Isi.ShoppingApp.Domain.Services
         {
             return cartRepository.GetAllCarts();
         }
+        public List<CartSold> GetAllCartsOfClient(User user)
+        {
+            return cartRepository.GetAllCartsOfClient(user);
+        }
+
+        public decimal getTotalSales()
+        {
+            return cartRepository.GetDataStore();
+        }
 
         
         private static void ThrowIfCartIsNull(Cart cart)

@@ -12,7 +12,7 @@ namespace Isi.ShoppingApp.Presentation.Views
     //Created by Ximena Carrillo
     public partial class PurchaseWindow : Window
     {
-        private const int ADMIN_ROLE = 1;
+        
 
         public PurchaseWindow(User user )
         {
@@ -22,8 +22,10 @@ namespace Isi.ShoppingApp.Presentation.Views
             shoppingAppViewModel.Success += OnSuccessMessage;
             DataContext = shoppingAppViewModel;
 
-            if (user.Role.IdRole == ADMIN_ROLE)
-                HeaderView.ViewOrdersButton.Visibility = Visibility.Visible;
+            if (user.Role.IdRole == Role.ADMIN_ROLE)
+                HeaderView.ViewOrdersButton.Content = "View All Orders";
+            else
+                HeaderView.ViewOrdersButton.Content = "View My Orders";
 
         }
 

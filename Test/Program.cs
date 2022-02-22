@@ -13,8 +13,11 @@ namespace Test
     {
         static void Main(string[] args)
         {
-            ObservableCollection<int> ints = new ObservableCollection<int>();
-            ints.Clear();
+            UserService userRepository = new ();
+            HashedPassword hashPassword = PasswordHasher.HashPassword("JaredC");
+
+            Result<User> result = userRepository.CreateUser(new User("JaredC", "Jared", hashPassword.Hash, hashPassword.Salt, new Role(2, "Admin")));
+            Console.WriteLine($"{result.Data}");
         }
     }
 }

@@ -8,6 +8,8 @@ namespace Isi.ShoppingApp.Core.Entities
 {
     public class Role
     {
+        public const int ADMIN_ROLE = 1;
+        public const int CLIENT_ROLE = 2;
         public long IdRole { get; }
         public string Name
         {
