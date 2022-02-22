@@ -330,7 +330,7 @@ namespace Isi.ShoppingApp.Presentation.ViewModels
             }
             cart.Products = toSet;
             PlaceOrderCommand.NotifyCanExecuteChanged();
-        }
+        
 
             ViewOrdersCommand.NotifyCanExecuteChanged();
         }
@@ -370,6 +370,18 @@ namespace Isi.ShoppingApp.Presentation.ViewModels
             {
                 ErrorMessage?.Invoke($"Sorry, the purchase could not be completed.");
             }
+        }
+        //Created by Ximena Carrillo
+        private void UpdateOrders()
+        {
+            Orders.Clear();
+
+            foreach (CartSold order in GetCarts())
+                Orders.Add(order);
+
+
+
+            ViewOrdersCommand.NotifyCanExecuteChanged();
         }
     }
 }
