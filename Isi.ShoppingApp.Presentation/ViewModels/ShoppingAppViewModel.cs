@@ -218,6 +218,7 @@ namespace Isi.ShoppingApp.Presentation.ViewModels
             AddQuantityCommand.NotifyCanExecuteChanged();
             RemoveQuantityCommand.NotifyCanExecuteChanged();
             EmptyCartCommand.NotifyCanExecuteChanged();
+            
         }
         //Created by Ximena Carrillo
         private int ValidateQuantityToAddVsStock(Cart_Products cartProduct, int quantityToAdd)
@@ -230,6 +231,7 @@ namespace Isi.ShoppingApp.Presentation.ViewModels
                 ErrorMessage?.Invoke($"Quantity to add is greather than stock of product {cartProduct.ProductObject.Name}");
                 return 0;
             }
+            
         }
 
         //Created by Ximena Carrillo
@@ -243,6 +245,7 @@ namespace Isi.ShoppingApp.Presentation.ViewModels
                 ErrorMessage?.Invoke($"I not possible to remove more unit for {cartProduct.ProductObject.Name}");
                 return 0;
             }
+            
         }
 
         //Created by Ximena Carrillo
@@ -329,9 +332,7 @@ namespace Isi.ShoppingApp.Presentation.ViewModels
                 toSet.Add(cart_Products);
             }
             cart.Products = toSet;
-            PlaceOrderCommand.NotifyCanExecuteChanged();
-        
-
+            PlaceOrderCommand.NotifyCanExecuteChanged();                                    
             ViewOrdersCommand.NotifyCanExecuteChanged();
         }
 
