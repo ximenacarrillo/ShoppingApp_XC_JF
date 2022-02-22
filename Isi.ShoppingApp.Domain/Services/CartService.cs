@@ -42,6 +42,7 @@ namespace Isi.ShoppingApp.Domain.Services
             return cartRepository.GetAllCarts();
         }
 
+        
         private static void ThrowIfCartIsNull(Cart cart)
         {
             if (cart == null)

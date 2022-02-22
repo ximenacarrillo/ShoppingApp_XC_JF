@@ -5,6 +5,7 @@ using Isi.Utility.Authentication;
 using Isi.Utility.Results;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Test
 {
@@ -12,11 +13,8 @@ namespace Test
     {
         static void Main(string[] args)
         {
-            CartService cartService = new();
-            foreach (CartSold cart in cartService.GetAllCarts())
-            {
-                Console.WriteLine(cart.SoldDate);
-            }
+            ObservableCollection<int> ints = new ObservableCollection<int>();
+            ints.Clear();
         }
     }
 }

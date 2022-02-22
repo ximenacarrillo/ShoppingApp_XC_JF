@@ -18,6 +18,8 @@ namespace Isi.ShoppingApp.Presentation.Views
     /// <summary>
     /// Interaction logic for AddToCartView.xaml
     /// </summary>
+    /// 
+    //Created by Ximena Carrillo
     public partial class AddToCartView : UserControl
     {
         public AddToCartView()

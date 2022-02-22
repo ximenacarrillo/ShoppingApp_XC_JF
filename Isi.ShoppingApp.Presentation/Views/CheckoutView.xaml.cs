@@ -18,6 +18,7 @@ namespace Isi.ShoppingApp.Presentation.Views
     /// <summary>
     /// Interaction logic for CheckoutView.xaml
     /// </summary>
+    /// //Created by Ximena Carrillo
     public partial class CheckoutView : UserControl
     {
         public CheckoutView()
