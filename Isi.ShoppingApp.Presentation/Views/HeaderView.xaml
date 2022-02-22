@@ -16,7 +16,7 @@
                        HorizontalAlignment="Left"
                        FontWeight="Bold"
                        FontSize="20" Content="WELCOME"/>
-                
+
                 <Label x:Name="UsersNameLabel"
                        HorizontalAlignment="Left"
                        FontWeight="Bold"
@@ -25,17 +25,15 @@
                        Foreground="DarkBlue"/>
                 <Button x:Name="ViewOrdersButton" 
                         Cursor="Hand"
-                        VerticalAlignment="Center"
-                        HorizontalAlignment="Right"
                         Command="{Binding Path=ViewOrdersCommand}"
-                        Width="100" Height="30"
-                        Background="White"
-                        Visibility="Hidden">
+                        Width="140" Height="31"
+                        Background="White">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="{StaticResource ViewOrdersIcon}" Height="19" Width="26" />
                         <TextBlock Text="View Orders" VerticalAlignment="Center" />
                     </StackPanel>
                 </Button>
+                
                 <Button x:Name="LogOutButton" 
                         Cursor="Hand"
                         VerticalAlignment="Center"

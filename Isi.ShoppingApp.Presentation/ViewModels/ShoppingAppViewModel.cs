@@ -19,7 +19,7 @@ namespace Isi.ShoppingApp.Presentation.ViewModels
         public event ErrorMessageHandler ErrorMessage;
         public event SuccessHandel Success;
 
-        private User user;
+        public User user;
         private Window window;
         private ProductService productService;
         private CartService cartService;
@@ -80,6 +80,7 @@ namespace Isi.ShoppingApp.Presentation.ViewModels
         public DelegateCommand RemoveFromCartCommand { get; }
         public DelegateCommand EmptyCartCommand { get; }
         public DelegateCommand PlaceOrderCommand { get; }
+        public DelegateCommand ViewOrdersCommand { get; }
 
         private string filterText;
         public string FilterText
@@ -121,6 +122,13 @@ namespace Isi.ShoppingApp.Presentation.ViewModels
             EmptyCartCommand = new DelegateCommand(EmptyCart, CanEmptyCart);
             PlaceOrderCommand = new DelegateCommand(PlaceOrder, CanPlaceOrder);
             RemoveFromCartCommand = new DelegateCommand(RemoveFromCart, CanRemoveFromCart);
+            ViewOrdersCommand = new DelegateCommand(ViewOrders);
+        }
+
+        private void ViewOrders(object obj)
+        {
+            OrdersView ordersView = new OrdersView(this);
+            ordersView.Show();
         }
 
         private void RemoveFromCart(object obj)

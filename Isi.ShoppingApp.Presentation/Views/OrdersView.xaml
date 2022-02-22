@@ -1,0 +1,39 @@
+﻿<Window x:Class="Isi.ShoppingApp.Presentation.Views.OrdersView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Isi.ShoppingApp.Presentation.Views"
+        mc:Ignorable="d"
+        Title="View Orders" Height="450" Width="800">
+    <DockPanel Background="White">
+        <StackPanel>
+            <DockPanel>
+                <Label x:Name="TitleOrderLabel"
+                           HorizontalAlignment="Left"
+                           FontSize="14"
+                           FontWeight="Bold"
+                           Foreground="Blue"
+                           Content="ORDERS"/>
+            </DockPanel>
+            <DockPanel>
+                <DataGrid ItemsSource="{Binding Path=Orders}"
+                              AutoGenerateColumns = "False" 
+                              SelectionMode = "Single" 
+                              x:Name="ProductsDataGrid"
+                              MinHeight="160"
+                              MaxHeight="160"
+                               VerticalScrollBarVisibility="Auto">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Width="*" Binding="{Binding Path=SoldDate, Mode=TwoWay}" Header="SoldDate" IsReadOnly="True" />
+                        <DataGridTextColumn Width="*" Binding="{Binding Path=Discount, StringFormat='{}{0:c}', Mode=TwoWay}" Header="Discount(%)" IsReadOnly="True"/>
+                        <DataGridTextColumn Width="*" Binding="{Binding Path=Subtotal, StringFormat='{}{0:c}', Mode=TwoWay}" Header="Subtotal" IsReadOnly="True"/>
+                        <DataGridTextColumn Width="*" Binding="{Binding Path=Taxes, StringFormat='{}{0:c}', Mode=TwoWay}" Header="Taxes" IsReadOnly="True"/>
+                        <DataGridTextColumn Width="*" Binding="{Binding Path=Total, StringFormat='{}{0:c}', Mode=TwoWay}" Header="Total" IsReadOnly="True"/>
+                        <DataGridTextColumn Width="*" Binding="{Binding Path=CustomerName, Mode=TwoWay}" Header="Customer Name" IsReadOnly="True"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </DockPanel>
+        </StackPanel>
+    </DockPanel>
+</Window>

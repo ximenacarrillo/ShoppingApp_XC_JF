@@ -13,12 +13,10 @@ namespace Test
         static void Main(string[] args)
         {
             UserService userRepository = new ();
-
             HashedPassword hashPassword = PasswordHasher.HashPassword("JaredC");
 
             Result<User> result = userRepository.CreateUser(new User("JaredC", "Jared", hashPassword.Hash, hashPassword.Salt, new Role(2, "Admin")));
             Console.WriteLine($"{result.Data}");
-            
         }
     }
 }
